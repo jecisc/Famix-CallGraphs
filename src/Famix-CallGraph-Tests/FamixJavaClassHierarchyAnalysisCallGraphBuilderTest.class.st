@@ -664,33 +664,7 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilderTest >> modelExampleWithSimpleCla
 
 { #category : 'helpers' }
 FamixJavaClassHierarchyAnalysisCallGraphBuilderTest >> modelExampleWithSimpleClassHierarchy2 [
-	"
-class A extends Object {
-    String m() {
-        return (this.toString());
-    }
-}
-
-class B extends A {
-    String m() {
-        return ""Hello"";
-    }
-}
-
-class C extends A {
-    String m() {
-        return ""Hello2"";
-    }
-
-    public static void main() {
-        A a = new A();
-        B b = new B();
-        String s;
-
-        s = a.m();
-        s = b.m();
-    }
-}"
+	"Source: FamixCallGraphBridge sources / 'example1' / 'example1.java'"
 
 	^ self model2JSON readStreamDo: [ :stream | FamixJavaModel new importFromJSONStream: stream ]
 ]
