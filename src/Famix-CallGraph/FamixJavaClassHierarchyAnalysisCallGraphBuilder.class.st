@@ -2,7 +2,6 @@ Class {
 	#name : 'FamixJavaClassHierarchyAnalysisCallGraphBuilder',
 	#superclass : 'FamixAbstractClassHierarchyAnalysisCallGraphBuilder',
 	#instVars : [
-		'callGraph',
 		'visited',
 		'worklist'
 	],
@@ -19,7 +18,7 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> build [
 			self computeCallGraphOf: worklist first.
 			visited add: worklist removeFirst ].
 
-	^ callGraph
+	^ self entryPoints
 ]
 
 { #category : 'building' }
@@ -31,14 +30,22 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> computeCallGraphOf: aNode [
 				ifNotNil: [
 						invocation receiver isStub
 							ifTrue: [ self flag: #todo "What to do?" ]
-							ifFalse: [ invocation receiver declaredType possibleRuntimeTypes do: [ :type | type halt ] ] ] ]
+							ifFalse: [
+									invocation receiver declaredType possibleRuntimeTypes do: [ :type |
+											self flag: #todo. "Constructor."
+											self flag: #todo. "Check if it already exists."
+											aNode
+												addCallee: (FamixCallGraphNode new
+														 methodName: invocation invokedEntity name;
+														 kind: type;
+														 yourself)
+												for: invocation ] ] ] ]
 ]
 
 { #category : 'initialization' }
 FamixJavaClassHierarchyAnalysisCallGraphBuilder >> initialize [
 
 	super initialize.
-	callGraph := IdentityDictionary new.
 	worklist := OrderedCollection new.
 	visited := Set new
 ]
