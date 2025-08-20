@@ -2,7 +2,8 @@ Class {
 	#name : 'FamixAbstractJavaCallGraphBuilderTestCase',
 	#superclass : 'TestCase',
 	#instVars : [
-		'model'
+		'model',
+		'graph'
 	],
 	#category : 'Famix-CallGraph-Tests',
 	#package : 'Famix-CallGraph-Tests'
@@ -12,6 +13,12 @@ Class {
 FamixAbstractJavaCallGraphBuilderTestCase class >> isAbstract [
 
 	^ self = FamixAbstractJavaCallGraphBuilderTestCase
+]
+
+{ #category : 'accessing' }
+FamixAbstractJavaCallGraphBuilderTestCase >> entryPoints [
+
+	^ model allMethods select: [ :method | method name = 'main' ]
 ]
 
 { #category : 'accessing' }
@@ -25,5 +32,6 @@ FamixAbstractJavaCallGraphBuilderTestCase >> javaSourcesFolder [
 FamixAbstractJavaCallGraphBuilderTestCase >> setUp [
 
 	super setUp.
-	model := (FamixJavaFoldersImporter importFolders: { self javaSourcesFolder }) anyOne
+	model := (FamixJavaFoldersImporter importFolders: { self javaSourcesFolder }) anyOne.
+	graph := (FamixJavaClassHierarchyAnalysisCallGraphBuilder entryPoints: self entryPoints) build
 ]

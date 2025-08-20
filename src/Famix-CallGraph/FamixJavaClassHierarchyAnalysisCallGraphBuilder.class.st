@@ -32,14 +32,9 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> computeCallGraphOf: aNode [
 							ifTrue: [ self flag: #todo "What to do?" ]
 							ifFalse: [
 									invocation receiver declaredType possibleRuntimeTypes do: [ :type |
-											self flag: #todo. "Constructor."
-											self flag: #todo. "Check if it already exists."
-											aNode
-												addCallee: (FamixCallGraphNode new
-														 methodName: invocation invokedEntity name;
-														 kind: type;
-														 yourself)
-												for: invocation ] ] ] ]
+										aNode addCallee: (self nodeForMethodNamed: invocation invokedEntity name kind: type) for: invocation ] ] ] ].
+
+	visited add: aNode
 ]
 
 { #category : 'initialization' }
@@ -48,4 +43,25 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> initialize [
 	super initialize.
 	worklist := OrderedCollection new.
 	visited := Set new
+]
+
+{ #category : 'building' }
+FamixJavaClassHierarchyAnalysisCallGraphBuilder >> nodeForMethodNamed: aString kind: kind [
+
+	| node |
+	visited
+		detect: [ :aNode | aNode methodName = aString and: [ aNode kind = kind ] ]
+		ifFound: [ :aNode | ^ aNode ].
+	worklist
+		detect: [ :aNode | aNode methodName = aString and: [ aNode kind = kind ] ]
+		ifFound: [ :aNode | ^ aNode ].
+
+	node := FamixCallGraphNode new
+		        methodName: aString;
+		        kind: kind;
+		        yourself.
+	
+	worklist add: node.
+
+	^ node
 ]

@@ -43,6 +43,11 @@ FamixCallGraphNode >> addCaller: aNode [
 	callers add: aNode
 ]
 
+{ #category : 'accessing' }
+FamixCallGraphNode >> callees [
+	^ callees
+]
+
 { #category : 'comparing' }
 FamixCallGraphNode >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
