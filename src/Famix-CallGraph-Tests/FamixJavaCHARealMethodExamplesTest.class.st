@@ -37,5 +37,6 @@ FamixJavaCHARealMethodExamplesTest >> testMethodDirectlyInKind [
 
 	self assert: node realMethod name equals: 'a'.
 	self assert: node realMethod signature equals: 'a()'.
+	"In this simple case we have the method directly on A."
 	self assert: node realMethod parentType name equals: 'A'
 ]
