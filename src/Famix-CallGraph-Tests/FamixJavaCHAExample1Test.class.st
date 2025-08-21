@@ -9,7 +9,7 @@ Class {
 FamixJavaCHAExample1Test >> testSameMethodIsReprentedByTheSameNode [
 
 	| main bms |
-	main :=self  graph anyOne.
+	main := self graph anyOne.
 
 	bms := OrderedCollection new.
 	main callees valuesDo: [ :callees |
@@ -19,6 +19,7 @@ FamixJavaCHAExample1Test >> testSameMethodIsReprentedByTheSameNode [
 
 	"We should have two times B.m() possibly invoked by main."
 	self assert: bms size equals: 2.
+
 	"Both should be the same instance."
 	self assert: bms first identicalTo: bms second
 ]

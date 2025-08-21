@@ -24,7 +24,12 @@ FamixAbstractJavaCallGraphBuilderTestResource >> graph [
 FamixAbstractJavaCallGraphBuilderTestResource >> javaSourcesFolder [
 	"Return the java folder containing the sources to parse for those tests"
 
-	^ FamixCallGraphBridge sources / ((self class name withoutPrefix: 'FamixJavaCHA') withoutSuffix: 'Resource') asLowercase
+	| folder |
+	folder := FamixCallGraphBridge sources / ((self class name withoutPrefix: 'FamixJavaCHA') withoutSuffix: 'Resource') uncapitalized.
+
+	folder ifAbsent: [ self error: 'Folder does not exists ' , folder pathString ].
+
+	^ folder
 ]
 
 { #category : 'accessing' }

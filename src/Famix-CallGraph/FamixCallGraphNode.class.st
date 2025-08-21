@@ -44,8 +44,31 @@ FamixCallGraphNode >> addCaller: aNode [
 ]
 
 { #category : 'accessing' }
+FamixCallGraphNode >> allNodesMatching: aBlock [
+	1halt.
+]
+
+{ #category : 'accessing' }
 FamixCallGraphNode >> callees [
 	^ callees
+]
+
+{ #category : 'accessing' }
+FamixCallGraphNode >> firstNodeMatching: aBlock [
+
+	^ self firstNodeMatching: aBlock visited: Set new
+]
+
+{ #category : 'accessing' }
+FamixCallGraphNode >> firstNodeMatching: aBlock visited: aCollection [
+
+	(aCollection includes: self) ifFalse: [
+			(aBlock value: self) ifTrue: [ ^ self ].
+			aCollection add: self ].
+
+	self callees valuesDo: [ :aColl | aColl do: [ :aNode | (aNode firstNodeMatching: aBlock) ifNotNil: [ :result | ^ result ] ] ].
+
+	^ nil
 ]
 
 { #category : 'comparing' }
