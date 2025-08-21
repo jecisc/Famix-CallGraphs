@@ -5,17 +5,11 @@ Class {
 	#package : 'Famix-CallGraph-Tests'
 }
 
-{ #category : 'accessing' }
-FamixJavaCHAExample1Test >> javaSourcesFolder [
-
-	^ FamixCallGraphBridge sources / 'example1'
-]
-
 { #category : 'tests' }
 FamixJavaCHAExample1Test >> testSameMethodIsReprentedByTheSameNode [
 
 	| main bms |
-	main := graph anyOne.
+	main :=self  graph anyOne.
 
 	bms := OrderedCollection new.
 	main callees valuesDo: [ :callees |

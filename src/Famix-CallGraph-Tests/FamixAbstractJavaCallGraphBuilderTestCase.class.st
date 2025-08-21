@@ -1,10 +1,6 @@
 Class {
 	#name : 'FamixAbstractJavaCallGraphBuilderTestCase',
 	#superclass : 'TestCase',
-	#instVars : [
-		'model',
-		'graph'
-	],
 	#category : 'Famix-CallGraph-Tests',
 	#package : 'Famix-CallGraph-Tests'
 }
@@ -16,22 +12,22 @@ FamixAbstractJavaCallGraphBuilderTestCase class >> isAbstract [
 ]
 
 { #category : 'accessing' }
-FamixAbstractJavaCallGraphBuilderTestCase >> entryPoints [
+FamixAbstractJavaCallGraphBuilderTestCase class >> resources [
 
-	^ model allMethods select: [ :method | method name = 'main' ]
-]
-
-{ #category : 'accessing' }
-FamixAbstractJavaCallGraphBuilderTestCase >> javaSourcesFolder [
-	"Return the java folder containing the sources to parse for those tests"
-
-	^ self subclassResponsibility
+	^ self environment
+		  at: ((self name withoutSuffix: 'Test') , 'Resource') asSymbol
+		  ifPresent: [ :class | { class } ]
+		  ifAbsent: [ {  } ]
 ]
 
 { #category : 'running' }
-FamixAbstractJavaCallGraphBuilderTestCase >> setUp [
+FamixAbstractJavaCallGraphBuilderTestCase >> graph [
 
-	super setUp.
-	model := (FamixJavaFoldersImporter importFolders: { self javaSourcesFolder }) anyOne.
-	graph := (FamixJavaClassHierarchyAnalysisCallGraphBuilder entryPoints: self entryPoints) build
+	^ self class resources anyOne current graph
+]
+
+{ #category : 'running' }
+FamixAbstractJavaCallGraphBuilderTestCase >> model [
+
+	^ self class resources anyOne current model
 ]

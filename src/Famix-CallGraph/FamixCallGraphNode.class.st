@@ -109,7 +109,8 @@ FamixCallGraphNode >> printOn: aStream [
 { #category : 'accessing' }
 FamixCallGraphNode >> realMethod [
 
-	^ realMethod ifNil: [ 1 halt "todo." ]
+	self flag: #todo. "Add multiple tests on this. With subclasses and interfaces and all."
+	^ realMethod ifNil: [ realMethod := (kind lookupMethodNamed: methodName) ifNil: [ 1 halt ] ]
 ]
 
 { #category : 'accessing' }
