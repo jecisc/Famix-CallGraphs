@@ -6,5 +6,9 @@ public class Main {
         System.out.println(c.b());
         D d = new D();
         System.out.println(d.b());
+        E e = new E();
+        System.out.println(e.i());
+        F f = new F();
+        System.out.println(f.i());
     }
 }
