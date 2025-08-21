@@ -1,7 +1,7 @@
-Extension { #name : 'FamixTWithMethods' }
+Extension { #name : 'FamixJavaType' }
 
 { #category : '*Famix-CallGraph' }
-FamixTWithMethods >> lookupMethodNamed: aString [
+FamixJavaType >> lookupMethodNamed: aString [
 
 	^ self methods
 		  detect: [ :method | method name = aString ]
