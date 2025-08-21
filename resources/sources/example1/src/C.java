@@ -10,6 +10,6 @@ class C extends A {
 
         s = a.m();
         s = b.m();
-        System.err.println("Done");
+        System.out.println("Done");
     }
 }

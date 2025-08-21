@@ -3,6 +3,6 @@ class Main {
         C c = new C();
         c.a();
         c.b();
-        System.err.println("Done");
+        System.out.println("Done");
     }
 }
