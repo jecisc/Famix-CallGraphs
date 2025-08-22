@@ -1,3 +1,4 @@
+import conflict_superclass_implementation.Q;
 import implementation.E;
 import inheritance.C;
 import inheritance.D;
@@ -6,6 +7,7 @@ import multiple_inheritance_and_implementations.L;
 import simple.A;
 import simple_override.H;
 import stub.M;
+import superclass_and_implemntation_implements.O;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,5 +27,9 @@ public class Main {
         System.out.println(l.l());
         M m = new M();
         System.out.println(m.toString());
+        O o = new O();
+        System.out.println(o.o());
+        Q q = new Q();
+        System.out.println(q.q());
     }
 }
