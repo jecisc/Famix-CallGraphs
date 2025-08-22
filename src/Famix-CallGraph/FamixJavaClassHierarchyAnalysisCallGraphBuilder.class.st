@@ -10,6 +10,12 @@ Class {
 }
 
 { #category : 'building' }
+FamixJavaClassHierarchyAnalysisCallGraphBuilder >> addEdgesTo: aNode for: invocation types: possibleRuntimeTypes methodName: name [
+
+	possibleRuntimeTypes do: [ :type | aNode addCallee: (self nodeForMethodNamed: name kind: type) for: invocation ]
+]
+
+{ #category : 'building' }
 FamixJavaClassHierarchyAnalysisCallGraphBuilder >> build [
 
 	worklist addAll: self entryPoints.
@@ -25,14 +31,27 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> build [
 FamixJavaClassHierarchyAnalysisCallGraphBuilder >> computeCallGraphOf: aNode [
 
 	aNode outgoingInvocations do: [ :invocation |
+			| methodName |
+			methodName := invocation invokedEntity name.
+
 			invocation receiver
-				ifNil: [ self flag: #todo "Check what to do" ]
+				ifNil: [
+						invocation invokedEntity isConstructor ifTrue: [
+								self
+									addEdgesTo: aNode
+									for: invocation
+									types: { invocation invokedEntity parentType }
+									methodName: methodName ].
+						self flag: #todo "Check what to do" ]
 				ifNotNil: [
 						invocation receiver isStub
 							ifTrue: [ self flag: #todo "What to do?" ]
 							ifFalse: [
-									invocation receiver declaredType possibleRuntimeTypes do: [ :type |
-										aNode addCallee: (self nodeForMethodNamed: invocation invokedEntity name kind: type) for: invocation ] ] ] ].
+									self
+										addEdgesTo: aNode
+										for: invocation
+										types: invocation receiver declaredType possibleRuntimeTypes
+										methodName: methodName ] ] ].
 
 	visited add: aNode
 ]
