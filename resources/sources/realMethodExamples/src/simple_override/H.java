@@ -1,3 +1,4 @@
+package simple_override;
 public class H extends G {
 
     @Override
