@@ -68,6 +68,19 @@ FamixJavaCHARealMethodExamplesTest >> testMethodFromInterface [
 ]
 
 { #category : 'tests' }
+FamixJavaCHARealMethodExamplesTest >> testMethodFromInterfaceRedefined [
+	"O inherits from N. N implements IN. N and IN define o."
+
+	| node |
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'o' and: [ aNode kind name = 'O' ] ].
+
+	self assert: node realMethod name equals: 'o'.
+	self assert: node realMethod signature equals: 'o()'.
+	"N redefine the method of IN"
+	self assert: node realMethod parentType name equals: 'N'
+]
+
+{ #category : 'tests' }
 FamixJavaCHARealMethodExamplesTest >> testMultipleInheritanceAndImplementations [
 	"L inherits form K. K inherits from J. J implements IJ. IJ extends IJ2. IJ2 extends IJ3. l is implemented on IJ3."
 
@@ -90,6 +103,19 @@ FamixJavaCHARealMethodExamplesTest >> testOverridenMethod [
 	self assert: node realMethod signature equals: 'g()'.
 	"Should be in H not G even if we have the method in G."
 	self assert: node realMethod parentType name equals: 'H'
+]
+
+{ #category : 'tests' }
+FamixJavaCHARealMethodExamplesTest >> testPrecedenceBetweenInterfaceAndSuperclass [
+	"Q inherits from P and implements IQ. q is defined on P and IQ."
+
+	| node |
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'q' and: [ aNode kind name = 'Q' ] ].
+
+	self assert: node realMethod name equals: 'q'.
+	self assert: node realMethod signature equals: 'q()'.
+	"Superclass takes predominance over interface."
+	self assert: node realMethod parentType name equals: 'P'
 ]
 
 { #category : 'tests' }
