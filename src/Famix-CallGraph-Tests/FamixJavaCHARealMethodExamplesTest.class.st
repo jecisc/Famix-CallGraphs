@@ -91,3 +91,16 @@ FamixJavaCHARealMethodExamplesTest >> testOverridenMethod [
 	"Should be in H not G even if we have the method in G."
 	self assert: node realMethod parentType name equals: 'H'
 ]
+
+{ #category : 'tests' }
+FamixJavaCHARealMethodExamplesTest >> testStub [
+	"M does not implement #toString and gets it from Object"
+
+	| node |
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'toString' and: [ aNode kind name = 'M' ] ].
+
+	self assert: node realMethod name equals: 'toString'.
+	self assert: node realMethod signature equals: 'toString()'.
+	self assert: node realMethod parentType name equals: 'Object'.
+	self assert: node realMethod isStub
+]
