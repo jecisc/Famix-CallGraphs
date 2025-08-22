@@ -66,3 +66,28 @@ FamixJavaCHARealMethodExamplesTest >> testMethodFromInterface [
 	self assert: node realMethod signature equals: 'i()'.
 	self assert: node realMethod parentType name equals: 'I'
 ]
+
+{ #category : 'tests' }
+FamixJavaCHARealMethodExamplesTest >> testMultipleInheritanceAndImplementations [
+	"L inherits form K. K inherits from J. J implements IJ. IJ extends IJ2. IJ2 extends IJ3. l is implemented on IJ3."
+
+	| node |
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'l' and: [ aNode kind name = 'L' ] ].
+
+	self assert: node realMethod name equals: 'l'.
+	self assert: node realMethod signature equals: 'l()'.
+	self assert: node realMethod parentType name equals: 'IJ3'
+]
+
+{ #category : 'tests' }
+FamixJavaCHARealMethodExamplesTest >> testOverridenMethod [
+	"H inherits from G. Method is in both G and H"
+
+	| node |
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'g' and: [ aNode kind name = 'H' ] ].
+
+	self assert: node realMethod name equals: 'g'.
+	self assert: node realMethod signature equals: 'g()'.
+	"Should be in H not G even if we have the method in G."
+	self assert: node realMethod parentType name equals: 'H'
+]
