@@ -5,6 +5,7 @@ import inheritance_implementation.F;
 import multiple_inheritance_and_implementations.L;
 import simple.A;
 import simple_override.H;
+import stub.M;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,5 +23,7 @@ public class Main {
         System.out.println(h.g());
         L l = new L();
         System.out.println(l.l());
+        M m = new M();
+        System.out.println(m.toString());
     }
 }
