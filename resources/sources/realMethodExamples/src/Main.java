@@ -10,5 +10,7 @@ public class Main {
         System.out.println(e.i());
         F f = new F();
         System.out.println(f.i());
+        H h = new H();
+        System.out.println(h.g());
     }
 }
