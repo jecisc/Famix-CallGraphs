@@ -49,7 +49,12 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> computeCallGraphOf: aNode [
 { #category : 'initialization' }
 FamixJavaClassHierarchyAnalysisCallGraphBuilder >> initialize [
 
-	self flag: #todo. "Method of same name but different signatures"
+	self flag: #todo. "Method of same name but different signatures	"
+	self flag: #todo. "Manage graph reduction."
+	self flag: #todo. "Manage graph exploration:
+	- Is there a path between two methods?
+	- What are all the paths between two methods?
+	- Is a not reacheable?"
 	super initialize.
 	worklist := OrderedCollection new.
 	visited := Set new

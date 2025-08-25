@@ -5,6 +5,13 @@ Class {
 	#package : 'Famix-CallGraph-Tests'
 }
 
+{ #category : 'helpers' }
+FamixJavaCHAExample1Test class >> browseSources [
+
+	<script>
+	super browseSources
+]
+
 { #category : 'tests' }
 FamixJavaCHAExample1Test >> testSameMethodIsReprentedByTheSameNode [
 

@@ -5,6 +5,13 @@ Class {
 	#package : 'Famix-CallGraph-Tests'
 }
 
+{ #category : 'helpers' }
+FamixJavaCHARealMethodExamplesTest class >> browseSources [
+
+	<script>
+	super browseSources
+]
+
 { #category : 'tests' }
 FamixJavaCHARealMethodExamplesTest >> testInheritedMethod [
 	"C inherits from B. Method is in B"

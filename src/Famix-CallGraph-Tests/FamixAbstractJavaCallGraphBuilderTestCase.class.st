@@ -5,6 +5,13 @@ Class {
 	#package : 'Famix-CallGraph-Tests'
 }
 
+{ #category : 'helpers' }
+FamixAbstractJavaCallGraphBuilderTestCase class >> browseSources [
+
+	<script>
+	self sourceResource javaSourcesFolder openInOSFileBrowser
+]
+
 { #category : 'testing' }
 FamixAbstractJavaCallGraphBuilderTestCase class >> isAbstract [
 
@@ -20,14 +27,27 @@ FamixAbstractJavaCallGraphBuilderTestCase class >> resources [
 		  ifAbsent: [ {  } ]
 ]
 
-{ #category : 'running' }
-FamixAbstractJavaCallGraphBuilderTestCase >> graph [
+{ #category : 'helpers' }
+FamixAbstractJavaCallGraphBuilderTestCase class >> sourceResource [
 
-	^ self class resources anyOne current graph
+	^ self resources anyOne current
 ]
 
-{ #category : 'running' }
+{ #category : 'helpers' }
+FamixAbstractJavaCallGraphBuilderTestCase >> graph [
+
+	^ self sourceResource graph
+]
+
+{ #category : 'helpers' }
 FamixAbstractJavaCallGraphBuilderTestCase >> model [
 
-	^ self class resources anyOne current model
+	^ self sourceResource model
+]
+
+{ #category : 'helpers' }
+FamixAbstractJavaCallGraphBuilderTestCase >> sourceResource [
+	"I return the instance of the test resource I'm using to build the sources of a java project"
+
+	^ self class sourceResource
 ]
