@@ -31,9 +31,9 @@ FamixCallGraphNode >> = anObject [
 ]
 
 { #category : 'adding' }
-FamixCallGraphNode >> addCallee: aNode for: anInvocation [
+FamixCallGraphNode >> addCallee: aNode [
 
-	(callees at: anInvocation ifAbsentPut: [ OrderedCollection new ]) add: aNode.
+	callees add: aNode.
 	aNode addCaller: self
 ]
 
@@ -66,7 +66,7 @@ FamixCallGraphNode >> firstNodeMatching: aBlock visited: aCollection [
 			(aBlock value: self) ifTrue: [ ^ self ].
 			aCollection add: self ].
 
-	self callees valuesDo: [ :aColl | aColl do: [ :aNode | (aNode firstNodeMatching: aBlock) ifNotNil: [ :result | ^ result ] ] ].
+	self callees do: [ :aNode | (aNode firstNodeMatching: aBlock) ifNotNil: [ :result | ^ result ] ].
 
 	^ nil
 ]
@@ -83,7 +83,7 @@ FamixCallGraphNode >> initialize [
 
 	super initialize.
 	callers := OrderedCollection new.
-	callees := IdentityDictionary new
+	callees := OrderedCollection new
 ]
 
 { #category : 'accessing' }

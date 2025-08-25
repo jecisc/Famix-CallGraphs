@@ -12,10 +12,9 @@ FamixJavaCHAExample1Test >> testSameMethodIsReprentedByTheSameNode [
 	main := self graph anyOne.
 
 	bms := OrderedCollection new.
-	main callees valuesDo: [ :callees |
-			callees
-				select: [ :callee | callee methodName = 'm' and: [ callee kind name = 'B' ] ]
-				thenDo: [ :callee | bms add: callee ] ].
+	main callees
+		select: [ :callee | callee methodName = 'm' and: [ callee kind name = 'B' ] ]
+		thenDo: [ :callee | bms add: callee ].
 
 	"We should have two times B.m() possibly invoked by main."
 	self assert: bms size equals: 2.

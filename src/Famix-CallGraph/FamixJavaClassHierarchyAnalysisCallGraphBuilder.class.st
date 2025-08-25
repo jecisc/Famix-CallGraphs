@@ -12,7 +12,7 @@ Class {
 { #category : 'building' }
 FamixJavaClassHierarchyAnalysisCallGraphBuilder >> addEdgesTo: aNode for: invocation types: possibleRuntimeTypes [
 
-	possibleRuntimeTypes do: [ :type | aNode addCallee: (self nodeForMethodNamed: invocation invokedEntity name kind: type) for: invocation ]
+	possibleRuntimeTypes do: [ :type | aNode addCallee: (self nodeForMethodNamed: invocation invokedEntity name kind: type) ]
 ]
 
 { #category : 'building' }
@@ -49,6 +49,7 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> computeCallGraphOf: aNode [
 { #category : 'initialization' }
 FamixJavaClassHierarchyAnalysisCallGraphBuilder >> initialize [
 
+	self flag: #todo. "Method of same name but different signatures"
 	super initialize.
 	worklist := OrderedCollection new.
 	visited := Set new
