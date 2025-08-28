@@ -12,7 +12,13 @@ Class {
 { #category : 'building' }
 FamixJavaClassHierarchyAnalysisCallGraphBuilder >> addEdgesTo: aNode for: invocation types: possibleRuntimeTypes [
 
-	possibleRuntimeTypes do: [ :type | aNode addCallee: (self nodeForMethodNamed: invocation invokedEntity name kind: type) ]
+	| nodes |
+	nodes := possibleRuntimeTypes
+		         select: [ :type | type methods anySatisfy: [ :method | method signature = invocation invokedEntity signature ] ]
+		         thenCollect: [ :type | self nodeForMethodNamed: invocation invokedEntity name kind: type ].
+	nodes
+		ifEmpty: [ aNode addCallee: (self nodeForMethodNamed: invocation invokedEntity name kind: invocation invokedEntity parentType) ]
+		ifNotEmpty: [ nodes do: [ :node | aNode addCallee: node ] ]
 ]
 
 { #category : 'building' }
@@ -31,6 +37,7 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> build [
 FamixJavaClassHierarchyAnalysisCallGraphBuilder >> computeCallGraphOf: aNode [
 
 	aNode outgoingInvocations do: [ :invocation |
+			self haltOnCount: 5.
 			invocation receiver
 				ifNil: [
 						invocation invokedEntity isConstructor
@@ -39,9 +46,12 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> computeCallGraphOf: aNode [
 									1 halt.
 									self flag: #todo "Check what to do" ] ]
 				ifNotNil: [
-						invocation receiver isStub
-							ifTrue: [ self flag: #todo "What to do?" ]
-							ifFalse: [ self addEdgesTo: aNode for: invocation types: invocation receiver declaredType possibleRuntimeTypes ] ] ].
+						invocation receiver declaredType
+							ifNil: [
+									invocation invokedEntity isStub
+										ifTrue: [ aNode addCallee: (self nodeForMethodNamed: invocation invokedEntity name kind: invocation invokedEntity parentType) ]
+										ifFalse: [ 1 halt ] ]
+							ifNotNil: [ self addEdgesTo: aNode for: invocation types: invocation receiver declaredType possibleRuntimeTypes ] ] ].
 
 	visited add: aNode
 ]
