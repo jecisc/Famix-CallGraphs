@@ -43,7 +43,7 @@ FamixCallGraphNode >> addCaller: aNode [
 	callers add: aNode
 ]
 
-{ #category : 'accessing' }
+{ #category : 'API' }
 FamixCallGraphNode >> allNodesMatching: aBlock [
 	1halt.
 ]
@@ -53,13 +53,13 @@ FamixCallGraphNode >> callees [
 	^ callees
 ]
 
-{ #category : 'accessing' }
+{ #category : 'API' }
 FamixCallGraphNode >> firstNodeMatching: aBlock [
 
 	^ self firstNodeMatching: aBlock visited: Set new
 ]
 
-{ #category : 'accessing' }
+{ #category : 'API' }
 FamixCallGraphNode >> firstNodeMatching: aBlock visited: aCollection [
 
 	(aCollection includes: self) ifFalse: [
