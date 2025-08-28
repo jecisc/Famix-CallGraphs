@@ -143,12 +143,18 @@ FamixCallGraphNode >> printOn: aStream [
 { #category : 'accessing' }
 FamixCallGraphNode >> realMethod [
 
-	self flag: #todo. "Add multiple tests on this. With subclasses and interfaces and all."
-	^ realMethod ifNil: [ realMethod := (kind lookupMethodNamed: methodName) ifNil: [ 1 halt ] ]
+	^ realMethod ifNil: [ realMethod := (kind lookupMethodNamed: methodName) ifNil: [ self error: 'This should not happen' ] ]
 ]
 
 { #category : 'accessing' }
 FamixCallGraphNode >> realMethod: anObject [
 
 	realMethod := anObject
+]
+
+{ #category : 'API' }
+FamixCallGraphNode >> withAllNodesDo: aBlock [
+	"Execute the block with myself and all the nodes I call transitively as argument for each iteration."
+
+	self withDeep: #callees do: aBlock
 ]
