@@ -86,6 +86,17 @@ FamixCallGraphNode >> initialize [
 	callees := OrderedCollection new
 ]
 
+{ #category : 'inspector' }
+FamixCallGraphNode >> inspectionSource: aBuilder [
+
+	<inspectorPresentationOrder: 950 title: 'SourceText'>
+	^ aBuilder newCode
+		  withoutSyntaxHighlight;
+		  withLineNumbers;
+		  text: self realMethod sourceText;
+		  beNotEditable
+]
+
 { #category : 'accessing' }
 FamixCallGraphNode >> kind [
 
