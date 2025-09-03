@@ -1,5 +1,5 @@
 class C extends A {
-    String m() {
+    public String m() {
         return "Hello2";
     }
 }

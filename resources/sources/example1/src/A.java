@@ -1,5 +1,6 @@
-public class A extends Object {
-    String m() {
+public class A {
+
+    public String m() {
         return (this.toString());
     }
 }
