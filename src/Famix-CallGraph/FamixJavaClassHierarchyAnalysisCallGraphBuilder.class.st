@@ -85,7 +85,7 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> nodeForMethodNamed: aString k
 		        methodName: aString;
 		        kind: kind;
 		        yourself.
-	
+
 	worklist add: node.
 
 	^ node

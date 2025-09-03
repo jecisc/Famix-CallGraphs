@@ -17,7 +17,7 @@ FamixJavaCHARealMethodExamplesTest >> testInheritedMethod [
 	"C inherits from B. Method is in B"
 
 	| node |
-	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'b' and: [ aNode kind name = 'C' ] ].
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'b' and: [ aNode kindName = 'C' ] ].
 
 	self assert: node realMethod name equals: 'b'.
 	self assert: node realMethod signature equals: 'b()'.
@@ -29,7 +29,7 @@ FamixJavaCHARealMethodExamplesTest >> testInheritedMethod [
 FamixJavaCHARealMethodExamplesTest >> testInheritedMethodAt2Levels [
 	"D inherits from C that inherits from B. Method is in B"
 	| node |
-	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'b' and: [ aNode kind name = 'D' ] ].
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'b' and: [ aNode kindName = 'D' ] ].
 
 	self assert: node realMethod name equals: 'b'.
 	self assert: node realMethod signature equals: 'b()'.
@@ -42,7 +42,7 @@ FamixJavaCHARealMethodExamplesTest >> testMethodDirectlyInKind [
 	"A has no interface and no inheritance. Method is in A"
 
 	| node |
-	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'a' and: [ aNode kind name = 'A' ] ].
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'a' and: [ aNode kindName = 'A' ] ].
 
 	self assert: node realMethod name equals: 'a'.
 	self assert: node realMethod signature equals: 'a()'.
@@ -55,7 +55,7 @@ FamixJavaCHARealMethodExamplesTest >> testMethodFromExtendedInterface [
 	"F implements IB. IB extends IA. Method is on IA."
 
 	| node |
-	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'i' and: [ aNode kind name = 'F' ] ].
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'i' and: [ aNode kindName = 'F' ] ].
 
 	self assert: node realMethod name equals: 'i'.
 	self assert: node realMethod signature equals: 'i()'.
@@ -67,7 +67,7 @@ FamixJavaCHARealMethodExamplesTest >> testMethodFromInterface [
 	"E implements I. Method is on I."
 
 	| node |
-	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'i' and: [ aNode kind name = 'E' ] ].
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'i' and: [ aNode kindName = 'E' ] ].
 
 	self assert: node realMethod name equals: 'i'.
 	self assert: node realMethod signature equals: 'i()'.
@@ -79,7 +79,7 @@ FamixJavaCHARealMethodExamplesTest >> testMethodFromInterfaceRedefined [
 	"O inherits from N. N implements IN. N and IN define o."
 
 	| node |
-	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'o' and: [ aNode kind name = 'O' ] ].
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'o' and: [ aNode kindName = 'O' ] ].
 
 	self assert: node realMethod name equals: 'o'.
 	self assert: node realMethod signature equals: 'o()'.
@@ -92,7 +92,7 @@ FamixJavaCHARealMethodExamplesTest >> testMultipleInheritanceAndImplementations 
 	"L inherits form K. K inherits from J. J implements IJ. IJ extends IJ2. IJ2 extends IJ3. l is implemented on IJ3."
 
 	| node |
-	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'l' and: [ aNode kind name = 'L' ] ].
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'l' and: [ aNode kindName = 'L' ] ].
 
 	self assert: node realMethod name equals: 'l'.
 	self assert: node realMethod signature equals: 'l()'.
@@ -104,7 +104,7 @@ FamixJavaCHARealMethodExamplesTest >> testOverridenMethod [
 	"H inherits from G. Method is in both G and H"
 
 	| node |
-	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'g' and: [ aNode kind name = 'H' ] ].
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'g' and: [ aNode kindName = 'H' ] ].
 
 	self assert: node realMethod name equals: 'g'.
 	self assert: node realMethod signature equals: 'g()'.
@@ -117,7 +117,7 @@ FamixJavaCHARealMethodExamplesTest >> testPrecedenceBetweenInterfaceAndSuperclas
 	"Q inherits from P and implements IQ. q is defined on P and IQ."
 
 	| node |
-	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'q' and: [ aNode kind name = 'Q' ] ].
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'q' and: [ aNode kindName = 'Q' ] ].
 
 	self assert: node realMethod name equals: 'q'.
 	self assert: node realMethod signature equals: 'q()'.
@@ -130,7 +130,7 @@ FamixJavaCHARealMethodExamplesTest >> testStub [
 	"M does not implement #toString and gets it from Object"
 
 	| node |
-	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'toString' and: [ aNode kind name = 'M' ] ].
+	node := self graph anyOne firstNodeMatching: [ :aNode | aNode methodName = 'toString' and: [ aNode kindName = 'M' ] ].
 
 	self assert: node realMethod name equals: 'toString'.
 	self assert: node realMethod signature equals: 'toString()'.

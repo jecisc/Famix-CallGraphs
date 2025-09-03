@@ -110,6 +110,12 @@ FamixCallGraphNode >> kind: anObject [
 ]
 
 { #category : 'accessing' }
+FamixCallGraphNode >> kindName [
+
+	^ self kind name
+]
+
+{ #category : 'accessing' }
 FamixCallGraphNode >> methodName [
 
 	^ methodName
@@ -134,7 +140,7 @@ FamixCallGraphNode >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		nextPutAll: ' (';
-		nextPutAll: kind name;
+		nextPutAll: self kindName;
 		nextPutAll: '>>';
 		nextPutAll: methodName;
 		nextPutAll: ')'
