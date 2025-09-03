@@ -24,6 +24,52 @@ FamixJavaCHAExample1Test >> testMainCallsAConstructor [
 ]
 
 { #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testMainCallsBConstructor [
+
+	| main |
+	main := self graph anyOne.
+
+	main callees
+		detect: [ :node | node kindName = 'B' and: [ node realMethod isConstructor ] ]
+		ifNone: [ self fail: 'Main should call the constructor of B' ]
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testMainCallsMethodMFromAOnce [
+
+	| main methods |
+	main := self graph anyOne.
+
+	methods := main callees select: [ :node | node kindName = 'A' and: [ node methodName = 'm' ] ].
+
+	self assert: methods size equals: 1
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testMainCallsMethodMFromBTwice [
+
+	| main methods |
+	main := self graph anyOne.
+
+	methods := main callees select: [ :node | node kindName = 'B' and: [ node methodName = 'm' ] ].
+
+	self assert: methods size equals: 2.
+	"We should have twice the same node. Once invoked from a.m and once from b.m."
+	self assert: methods first identicalTo: methods second
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testMainCallsMethodMFromCOnce [
+
+	| main methods |
+	main := self graph anyOne.
+
+	methods := main callees select: [ :node | node kindName = 'C' and: [ node methodName = 'm' ] ].
+
+	self assert: methods size equals: 1
+]
+
+{ #category : 'tests - callgraph' }
 FamixJavaCHAExample1Test >> testSameMethodIsReprentedByTheSameNode [
 
 	| main bms |
