@@ -1,2 +1,10 @@
 
 **/.DS_Store
+
+resources/sources/.idea/
+
+resources/sources/out/
+
+**/*.iml
+
+**/.vscode
