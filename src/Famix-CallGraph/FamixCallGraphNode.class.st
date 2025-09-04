@@ -71,6 +71,12 @@ FamixCallGraphNode >> firstNodeMatching: aBlock visited: aCollection [
 	^ nil
 ]
 
+{ #category : 'testing' }
+FamixCallGraphNode >> hasCallees [
+
+	^ self callees isNotEmpty
+]
+
 { #category : 'comparing' }
 FamixCallGraphNode >> hash [
 	"Answer an integer value that is related to the identity of the receiver."

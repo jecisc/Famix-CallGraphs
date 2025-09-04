@@ -12,6 +12,22 @@ FamixJavaCHAExample1Test class >> browseSources [
 	super browseSources
 ]
 
+{ #category : 'tests - api' }
+FamixJavaCHAExample1Test >> testHasCallees [
+
+	self assert: self graph anyOne hasCallees.
+	self deny: (self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'm' ] ]) hasCallees
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testMFromCDoesNotCallAnything [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'm' ] ].
+
+	self deny: m hasCallees
+]
+
 { #category : 'tests - callgraph' }
 FamixJavaCHAExample1Test >> testMainCallsAConstructor [
 
