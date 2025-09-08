@@ -37,7 +37,6 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> build [
 FamixJavaClassHierarchyAnalysisCallGraphBuilder >> computeCallGraphOf: aNode [
 
 	aNode outgoingInvocations do: [ :invocation |
-			self haltOnCount: 5.
 			invocation receiver
 				ifNil: [
 						invocation invokedEntity isConstructor

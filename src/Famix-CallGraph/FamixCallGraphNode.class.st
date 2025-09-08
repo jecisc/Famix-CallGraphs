@@ -103,6 +103,12 @@ FamixCallGraphNode >> inspectionSource: aBuilder [
 		  beNotEditable
 ]
 
+{ #category : 'API' }
+FamixCallGraphNode >> isStub [
+
+	^ self realMethod isStub
+]
+
 { #category : 'accessing' }
 FamixCallGraphNode >> kind [
 

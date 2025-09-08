@@ -19,6 +19,13 @@ FamixJavaCHAExample1Test >> testHasCallees [
 	self deny: (self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'm' ] ]) hasCallees
 ]
 
+{ #category : 'tests - api' }
+FamixJavaCHAExample1Test >> testIsStub [
+
+	self assert: (self graph anyOne firstNodeMatching: [ :node | node kindName = 'PrintStream' and: [ node methodName = 'println' ] ]) isStub.
+	self deny: self graph anyOne isStub
+]
+
 { #category : 'tests - callgraph' }
 FamixJavaCHAExample1Test >> testMFromCDoesNotCallAnything [
 
@@ -83,6 +90,19 @@ FamixJavaCHAExample1Test >> testMainCallsMethodMFromCOnce [
 	methods := main callees select: [ :node | node kindName = 'C' and: [ node methodName = 'm' ] ].
 
 	self assert: methods size equals: 1
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testMainCallsStubPrintln [
+
+	| main method |
+	main := self graph anyOne.
+
+	method := main callees
+		          detect: [ :node | node kindName = 'PrintStream' and: [ node methodName = 'println' ] ]
+		          ifNone: [ self fail: 'Main should call println' ].
+
+	self assert: method isStub
 ]
 
 { #category : 'tests - callgraph' }
