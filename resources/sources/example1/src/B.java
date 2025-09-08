@@ -1,27 +1,30 @@
 public class B extends A {
 
     public B(){
-        this.initialize();
-        this.initialize2();
+        this.initializeFromConstructor();
     }
 
     static {
-      initialize3();
+      initializeFromStaticInitializationBlock();
+    }
+
+    {
+        initializeFromInitializationBlock();
     }
 
     public String m() {
         return "Hello";
     }
 
-    private void initialize() {
+    private void initializeFromConstructor() {
         System.out.println("init");
     }
 
-    private void initialize2(){
+    private void initializeFromInitializationBlock(){
         System.out.println("init2");
     }
 
-    static private void initialize3(){
+    static private void initializeFromStaticInitializationBlock(){
         System.out.println("init3");
     }
 
