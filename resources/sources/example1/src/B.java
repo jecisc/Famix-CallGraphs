@@ -5,6 +5,10 @@ public class B extends A {
         this.initialize2();
     }
 
+    static {
+      initialize3();
+    }
+
     public String m() {
         return "Hello";
     }
@@ -15,6 +19,10 @@ public class B extends A {
 
     private void initialize2(){
         System.out.println("init2");
+    }
+
+    static private void initialize3(){
+        System.out.println("init3");
     }
 
 }
