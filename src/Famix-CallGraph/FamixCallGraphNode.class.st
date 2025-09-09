@@ -12,7 +12,7 @@ Class {
 	#package : 'Famix-CallGraph'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'instance creation' }
 FamixCallGraphNode class >> methodName: aString kind: aFamixType [
 
 	^ self new

@@ -80,10 +80,7 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> nodeForMethodNamed: aString k
 		detect: [ :aNode | aNode methodName = aString and: [ aNode kind = kind ] ]
 		ifFound: [ :aNode | ^ aNode ].
 
-	node := FamixCallGraphNode new
-		        methodName: aString;
-		        kind: kind;
-		        yourself.
+	node := FamixCallGraphNode methodName: aString kind: kind.
 
 	worklist add: node.
 
