@@ -59,6 +59,25 @@ FamixJavaCHAExample1Test >> testAMIsCalledInMain [
 ]
 
 { #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testBMCallsNothing [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'B' and: [ node methodName = 'm' ] ].
+
+	self deny: m hasCallees
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testBMIsCalledTwiceInMain [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'B' and: [ node methodName = 'm' ] ].
+
+	self assert: m callers size equals: 2.
+	self assert: (m callers allSatisfy: [ :caller | caller kindName = 'Main' and: [ caller methodName = 'main' ] ])
+]
+
+{ #category : 'tests - callgraph' }
 FamixJavaCHAExample1Test >> testCMCallsToString [
 
 	| m |
@@ -70,15 +89,24 @@ FamixJavaCHAExample1Test >> testCMCallsToString [
 ]
 
 { #category : 'tests - callgraph' }
-FamixJavaCHAExample1Test >> testCMIsCalledInTwoPlaces [
+FamixJavaCHAExample1Test >> testCMIsCalledInMain [
 
 	| m |
-	self skip.
 	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'm' ] ].
 
-	self assert: m callers size equals: 2.
-	self assert: (m callers anySatisfy: [ :caller | caller kindName = 'C' and: [ caller methodName = 'm' ] ]).
-	self assert: (m callers anySatisfy: [ :caller | caller kindName = 'A' and: [ caller methodName = 'm' ] ])
+	self assert: m callers size equals: 1.
+	self assert: (m callers anySatisfy: [ :caller | caller kindName = 'Main' and: [ caller methodName = 'main' ] ])
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testCToStringHasTwoCallers [
+
+	| toString |
+	toString := self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'toString' ] ].
+
+	self assert: toString callers size equals: 2.
+	self assert: (toString callers anySatisfy: [ :caller | caller kindName = 'C' and: [ caller methodName = 'm' ] ]).
+	self assert: (toString callers anySatisfy: [ :caller | caller kindName = 'A' and: [ caller methodName = 'm' ] ])
 ]
 
 { #category : 'tests - api' }
