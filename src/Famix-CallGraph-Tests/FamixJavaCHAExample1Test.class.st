@@ -43,16 +43,40 @@ FamixJavaCHAExample1Test >> testAMCallsAllMethodsWithToString [
 	self skip. "Todo"
 	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'A' and: [ node methodName = 'm' ] ].
 
-	self assert: m callees size equals: 2.
+	self assert: m callees size equals: 3.
 	self assert: (m callees anySatisfy: [ :node | node kindName = 'Object' and: [ node methodName = 'toString' ] ]).
-	self assert: (m callees anySatisfy: [ :node | node kindName = 'D' and: [ node methodName = 'toString' ] ])
+	self assert: (m callees anySatisfy: [ :node | node kindName = 'C' and: [ node methodName = 'toString' ] ]). "This one is in the same hierarchy than A"
+	self assert: (m callees anySatisfy: [ :node | node kindName = 'D' and: [ node methodName = 'toString' ] ]) "This one is not in A's hierarchy"
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testCMCallsToString [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'm' ] ].
+
+	self assert: m callees size equals: 1.
+	self assert: m callees anyOne kindName equals: 'C'.
+	self assert: m callees anyOne methodName equals: 'toString'
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testCMIsCalledInTwoPlaces [
+
+	| m |
+	self skip.
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'm' ] ].
+
+	self assert: m callers size equals: 2.
+	self assert: (m callers anySatisfy: [ :caller | caller kindName = 'C' and: [ caller methodName = 'm' ] ]).
+	self assert: (m callers anySatisfy: [ :caller | caller kindName = 'A' and: [ caller methodName = 'm' ] ])
 ]
 
 { #category : 'tests - api' }
 FamixJavaCHAExample1Test >> testHasCallees [
 
 	self assert: self graph anyOne hasCallees.
-	self deny: (self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'm' ] ]) hasCallees
+	self deny: (self graph anyOne firstNodeMatching: [ :node | node kindName = 'B' and: [ node methodName = 'm' ] ]) hasCallees
 ]
 
 { #category : 'tests - api' }
@@ -60,15 +84,6 @@ FamixJavaCHAExample1Test >> testIsStub [
 
 	self assert: (self graph anyOne firstNodeMatching: [ :node | node kindName = 'PrintStream' and: [ node methodName = 'println' ] ]) isStub.
 	self deny: self graph anyOne isStub
-]
-
-{ #category : 'tests - callgraph' }
-FamixJavaCHAExample1Test >> testMFromCDoesNotCallAnything [
-
-	| m |
-	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'm' ] ].
-
-	self deny: m hasCallees
 ]
 
 { #category : 'tests - callgraph' }
