@@ -53,6 +53,11 @@ FamixCallGraphNode >> callees [
 	^ callees
 ]
 
+{ #category : 'accessing' }
+FamixCallGraphNode >> callers [
+	^ callers
+]
+
 { #category : 'API' }
 FamixCallGraphNode >> firstNodeMatching: aBlock [
 

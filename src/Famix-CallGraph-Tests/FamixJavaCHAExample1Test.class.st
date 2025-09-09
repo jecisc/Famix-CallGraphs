@@ -12,6 +12,30 @@ FamixJavaCHAExample1Test class >> browseSources [
 	super browseSources
 ]
 
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testAConstructorCallsObjectConstructor [
+
+	| constructor |
+	self skip. "Todo + cleaning to do afterward https://github.com/moosetechnology/VerveineJ/issues/161"
+	constructor := self graph anyOne callees detect: [ :node | node kindName = 'A' and: [ node realMethod isConstructor ] ].
+
+	self assert: constructor callees size equals: 1.
+	self assert: constructor callees anyOne kind name equals: 'object'.
+	self assert: constructor callees anyOne realMethod isConstructor
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testAConstructorHasTwoCallers [
+
+	| constructor |
+	self skip. "Todo + cleaning to do afterward https://github.com/moosetechnology/VerveineJ/issues/161"
+	constructor := self graph anyOne callees detect: [ :node | node kindName = 'A' and: [ node realMethod isConstructor ] ].
+
+	self assert: constructor callers size equals: 2.
+	self assert: (constructor callers anySatisfy: [ :caller | caller kindName = 'B' and: [ caller realMethod isConstructor ] ]).
+	self assert: (constructor callers anySatisfy: [ :caller | caller kindName = 'Main' and: [ caller methodName = 'main' ] ])
+]
+
 { #category : 'tests - api' }
 FamixJavaCHAExample1Test >> testHasCallees [
 
@@ -115,6 +139,15 @@ FamixJavaCHAExample1Test >> testMainCallsStubPrintln [
 		          ifNone: [ self fail: 'Main should call println' ].
 
 	self assert: method isStub
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testMainHasNoCallers [
+
+	| main |
+	main := self graph anyOne.
+
+	self assertEmpty: main callers
 ]
 
 { #category : 'tests - callgraph' }
