@@ -40,13 +40,22 @@ FamixJavaCHAExample1Test >> testAConstructorHasTwoCallers [
 FamixJavaCHAExample1Test >> testAMCallsAllMethodsWithToString [
 
 	| m |
-	self skip. "Todo"
 	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'A' and: [ node methodName = 'm' ] ].
 
 	self assert: m callees size equals: 3.
 	self assert: (m callees anySatisfy: [ :node | node kindName = 'Object' and: [ node methodName = 'toString' ] ]).
 	self assert: (m callees anySatisfy: [ :node | node kindName = 'C' and: [ node methodName = 'toString' ] ]). "This one is in the same hierarchy than A"
 	self assert: (m callees anySatisfy: [ :node | node kindName = 'D' and: [ node methodName = 'toString' ] ]) "This one is not in A's hierarchy"
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testAMIsCalledInMain [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'm' ] ].
+
+	self assert: m callers size equals: 1.
+	self assert: (m callers anySatisfy: [ :caller | caller kindName = 'Main' and: [ caller methodName = 'main' ] ])
 ]
 
 { #category : 'tests - callgraph' }

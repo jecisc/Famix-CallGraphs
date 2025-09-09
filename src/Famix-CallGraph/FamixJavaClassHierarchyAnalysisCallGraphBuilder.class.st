@@ -16,9 +16,7 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> addEdgesTo: aNode for: invoca
 	nodes := possibleRuntimeTypes
 		         select: [ :type | type methods anySatisfy: [ :method | method signature = invocation invokedEntity signature ] ]
 		         thenCollect: [ :type | self nodeForMethodNamed: invocation invokedEntity name kind: type ].
-	nodes
-		ifEmpty: [ aNode addCallee: (self nodeForMethodNamed: invocation invokedEntity name kind: invocation invokedEntity parentType) ]
-		ifNotEmpty: [ nodes do: [ :node | aNode addCallee: node ] ]
+	nodes ifEmpty: [ self error: 'We should not get here?' ] ifNotEmpty: [ nodes do: [ :node | aNode addCallee: node ] ]
 ]
 
 { #category : 'building' }
@@ -44,13 +42,7 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> computeCallGraphOf: aNode [
 							ifFalse: [
 									1 halt.
 									self flag: #todo "Check what to do" ] ]
-				ifNotNil: [
-						invocation receiver declaredType
-							ifNil: [
-									invocation invokedEntity isStub
-										ifTrue: [ aNode addCallee: (self nodeForMethodNamed: invocation invokedEntity name kind: invocation invokedEntity parentType) ]
-										ifFalse: [ 1 halt ] ]
-							ifNotNil: [ self addEdgesTo: aNode for: invocation types: invocation receiver declaredType possibleRuntimeTypes ] ] ].
+				ifNotNil: [ self addEdgesTo: aNode for: invocation types: invocation invokedEntity parentType possibleRuntimeTypes ] ].
 
 	visited add: aNode
 ]
