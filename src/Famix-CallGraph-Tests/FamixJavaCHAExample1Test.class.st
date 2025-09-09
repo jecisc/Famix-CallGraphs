@@ -58,6 +58,18 @@ FamixJavaCHAExample1Test >> testMainCallsBConstructor [
 ]
 
 { #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testMainCallsBStaticInitializationBlock [
+
+	| main |
+	self skip. "Waiting for https://github.com/moosetechnology/VerveineJ/issues/162"
+	main := self graph anyOne.
+
+	main callees
+		detect: [ :node | node kindName = 'B' and: [ node realMethod isStaticInitializationBlock ] ]
+		ifNone: [ self fail: 'Main should call the static initialization block of B' ]
+]
+
+{ #category : 'tests - callgraph' }
 FamixJavaCHAExample1Test >> testMainCallsMethodMFromAOnce [
 
 	| main methods |
