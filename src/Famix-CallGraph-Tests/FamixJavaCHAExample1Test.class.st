@@ -36,6 +36,18 @@ FamixJavaCHAExample1Test >> testAConstructorHasTwoCallers [
 	self assert: (constructor callers anySatisfy: [ :caller | caller kindName = 'Main' and: [ caller methodName = 'main' ] ])
 ]
 
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testAMCallsAllMethodsWithToString [
+
+	| m |
+	self skip. "Todo"
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'A' and: [ node methodName = 'm' ] ].
+
+	self assert: m callees size equals: 2.
+	self assert: (m callees anySatisfy: [ :node | node kindName = 'Object' and: [ node methodName = 'toString' ] ]).
+	self assert: (m callees anySatisfy: [ :node | node kindName = 'D' and: [ node methodName = 'toString' ] ])
+]
+
 { #category : 'tests - api' }
 FamixJavaCHAExample1Test >> testHasCallees [
 
