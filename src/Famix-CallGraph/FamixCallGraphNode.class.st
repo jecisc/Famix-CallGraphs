@@ -98,6 +98,43 @@ FamixCallGraphNode >> initialize [
 ]
 
 { #category : 'inspector' }
+FamixCallGraphNode >> inspectGraph: aBuilder [
+
+	<inspectorPresentationOrder: 950 title: 'Graph'>
+	| canvas shapes |
+	canvas := RSCanvas new.
+	shapes := self withAllNodesCollect: [ :node |
+			          | box |
+			          box := RSBox new
+				                 size: 30;
+				                 draggable;
+				                 model: node;
+				                 yourself.
+
+			          node = self ifTrue: [ box color: #red ].
+
+			          box @ (RSLabeled new text: [ :n | n realMethod printString ]) ].
+
+	canvas addAll: shapes.
+
+	RSLineBuilder arrowedLine
+		attachPoint: RSBorderAttachPoint new;
+		canvas: canvas;
+		shapes: canvas nodes;
+		connectToAll: #callees.
+
+	RSTreeLayout new
+		verticalGap: 50;
+		horizontalGap: 150;
+		applyOn: canvas nodes.
+	canvas @ RSCanvasController.
+
+	^ (aBuilder instantiate: SpRoassalInspectorPresenter)
+		  canvas: canvas;
+		  yourself
+]
+
+{ #category : 'inspector' }
 FamixCallGraphNode >> inspectionSource: aBuilder [
 
 	<inspectorPresentationOrder: 950 title: 'SourceText'>
@@ -173,6 +210,12 @@ FamixCallGraphNode >> realMethod [
 FamixCallGraphNode >> realMethod: anObject [
 
 	realMethod := anObject
+]
+
+{ #category : 'API' }
+FamixCallGraphNode >> withAllNodesCollect: aBlock [
+
+	^ self withDeep: #callees collect: aBlock
 ]
 
 { #category : 'API' }
