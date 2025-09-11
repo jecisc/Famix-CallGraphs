@@ -59,6 +59,29 @@ FamixJavaCHAExample1Test >> testAMIsCalledInMain [
 ]
 
 { #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testBConstructorCallees [
+
+	| constructor |
+	self skip. "Todo + cleaning to do afterward https://github.com/moosetechnology/VerveineJ/issues/161"
+	constructor := self graph anyOne callees detect: [ :node | node kindName = 'B' and: [ node realMethod isConstructor ] ].
+
+	self assert: constructor callees size equals: 3.
+	self assert: (constructor callees anySatisfy: [ :node | node kindName = 'A' and: [ node realMethod isConstructor ] ]).
+	self assert: (constructor callees anySatisfy: [ :node | node kindName = 'B' and: [ node methodName = 'initializeFromConstructor' ] ]).
+	self assert: (constructor callees anySatisfy: [ :node | node kindName = 'B' and: [ node realMethod isInstanceInitializationBlock ] ])
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testBConstructorIsCalledByMain [
+
+	| constructor |
+	constructor := self graph anyOne callees detect: [ :node | node kindName = 'B' and: [ node realMethod isConstructor ] ].
+
+	self assert: constructor callers size equals: 1.
+	self assert: (constructor callers anySatisfy: [ :node | node kindName = 'Main' and: [ node methodName = 'main' ] ])
+]
+
+{ #category : 'tests - callgraph' }
 FamixJavaCHAExample1Test >> testBMCallsNothing [
 
 	| m |
@@ -75,6 +98,16 @@ FamixJavaCHAExample1Test >> testBMIsCalledTwiceInMain [
 
 	self assert: m callers size equals: 2.
 	self assert: (m callers allSatisfy: [ :caller | caller kindName = 'Main' and: [ caller methodName = 'main' ] ])
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testBStaticInitializationBlockCallsInitializeFromStaticInitializationBlock [
+
+	| block |
+	self skip. "Waiting for https://github.com/moosetechnology/VerveineJ/issues/162"
+	block := self graph anyOne firstNodeMatching: [ :node | node kindName = 'B' and: [ node realMethod isStaticInitializationBlock ] ].
+
+	self assert: (block callees anySatisfy: [ :node | node kindName = 'B' and: [ node methodName = 'initializeFromStaticInitializationBlock' ] ])
 ]
 
 { #category : 'tests - callgraph' }
