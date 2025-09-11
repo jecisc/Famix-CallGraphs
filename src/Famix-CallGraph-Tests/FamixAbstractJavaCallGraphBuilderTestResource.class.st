@@ -45,3 +45,11 @@ FamixAbstractJavaCallGraphBuilderTestResource >> setUp [
 	model := (FamixJavaFoldersImporter importFolders: { self javaSourcesFolder }) anyOne.
 	graph := (FamixJavaClassHierarchyAnalysisCallGraphBuilder entryPoints: self entryPoints) build
 ]
+
+{ #category : 'running' }
+FamixAbstractJavaCallGraphBuilderTestResource >> tearDown [
+
+	model := nil.
+	graph := nil.
+	super tearDown
+]
