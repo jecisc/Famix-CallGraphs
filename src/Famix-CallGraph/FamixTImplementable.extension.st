@@ -3,9 +3,9 @@ Extension { #name : 'FamixTImplementable' }
 { #category : '*Famix-CallGraph' }
 FamixTImplementable >> possibleRuntimeTypes [
 
-	self flag: #todo. "Manage implementations."
-
-	^ self subclassHierarchy
-		  addFirst: self;
-		  yourself
+	| result |
+	result := self subclassHierarchy.
+	result addFirst: self.
+	result copy do: [ :interface | interface implementors do: [ :class | result addAll: class possibleRuntimeTypes ] ].
+	^ result
 ]

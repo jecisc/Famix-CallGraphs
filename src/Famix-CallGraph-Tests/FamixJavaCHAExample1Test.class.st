@@ -52,7 +52,7 @@ FamixJavaCHAExample1Test >> testAMCallsAllMethodsWithToString [
 FamixJavaCHAExample1Test >> testAMIsCalledInMain [
 
 	| m |
-	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'm' ] ].
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'A' and: [ node methodName = 'm' ] ].
 
 	self assert: m callers size equals: 1.
 	self assert: (m callers anySatisfy: [ :caller | caller kindName = 'Main' and: [ caller methodName = 'main' ] ])
