@@ -38,7 +38,52 @@ FamixJavaCHAExample2Test >> testMainCallsMethod1FromAAndC [
 
 	main callees
 		detect: [ :node | node kindName = 'C' and: [ node methodName = 'method1' ] ]
-		ifNone: [ self fail: 'Main should call method1 from the class C' ]
+		ifNone: [ self fail: 'Main should call method1 from the class C' ].
+
+	self assert: (main callees select: [ :node | node methodName = 'method1' ]) size equals: 2
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testMainCallsMethod2FromI2 [
+
+	| main |
+	main := self graph anyOne.
+
+	main callees
+		detect: [ :node | node kindName = 'I2' and: [ node methodName = 'method2' ] ]
+		ifNone: [ self fail: 'Main should call method2 from the class I2' ].
+
+	self assert: (main callees select: [ :node | node methodName = 'method2' ]) size equals: 1
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testMainCallsMethod3FromI [
+
+	| main |
+	main := self graph anyOne.
+
+	main callees
+		detect: [ :node | node kindName = 'I' and: [ node methodName = 'method3' ] ]
+		ifNone: [ self fail: 'Main should call method3 from the class I' ].
+
+	self assert: (main callees select: [ :node | node methodName = 'method3' ]) size equals: 1
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testMainCallsMethod4FromIAndI2 [
+
+	| main |
+	main := self graph anyOne.
+
+	main callees
+		detect: [ :node | node kindName = 'I' and: [ node methodName = 'method4' ] ]
+		ifNone: [ self fail: 'Main should call method4 from the class I' ].
+
+	main callees
+		detect: [ :node | node kindName = 'I2' and: [ node methodName = 'method4' ] ]
+		ifNone: [ self fail: 'Main should call method4 from the class I2' ].
+
+	self assert: (main callees select: [ :node | node methodName = 'method4' ]) size equals: 2
 ]
 
 { #category : 'tests' }
@@ -63,4 +108,13 @@ FamixJavaCHAExample2Test >> testMainDoesNotCallsMethod1FromI [
 	main callees
 		detect: [ :node | node kindName = 'I' and: [ node methodName = 'method1' ] ]
 		ifFound: [ self fail: 'Main should call method1 from the class I because the method is only declared and not implemented.' ]
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testMainHasNoCallers [
+
+	| main |
+	main := self graph anyOne.
+
+	self assertEmpty: main callers
 ]
