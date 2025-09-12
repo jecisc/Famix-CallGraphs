@@ -53,3 +53,14 @@ FamixJavaCHAExample2Test >> testMainCallsStubPrintln4Times [
 	self assert: printlns size equals: 4.
 	self assert: printlns asSet size equals: 1
 ]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testMainDoesNotCallsMethod1FromI [
+
+	| main |
+	main := self graph anyOne.
+
+	main callees
+		detect: [ :node | node kindName = 'I' and: [ node methodName = 'method1' ] ]
+		ifFound: [ self fail: 'Main should call method1 from the class I because the method is only declared and not implemented.' ]
+]

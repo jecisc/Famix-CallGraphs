@@ -14,7 +14,7 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> addEdgesTo: aNode for: invoca
 
 	| nodes |
 	nodes := possibleRuntimeTypes
-		         select: [ :type | type methods anySatisfy: [ :method | method signature = invocation invokedEntity signature ] ]
+		         select: [ :type | type implementesMethodEquivalentTo: invocation invokedEntity ]
 		         thenCollect: [ :type | self nodeForMethodNamed: invocation invokedEntity name kind: type ].
 	nodes ifEmpty: [ self error: 'We should not get here?' ] ifNotEmpty: [ nodes do: [ :node | aNode addCallee: node ] ]
 ]
