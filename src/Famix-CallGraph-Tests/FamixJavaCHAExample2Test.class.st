@@ -95,6 +95,64 @@ FamixJavaCHAExample2Test >> testIMethod1IsNotInTheCallgraph [
 ]
 
 { #category : 'tests' }
+FamixJavaCHAExample2Test >> testIMethod2IsNotInTheCallgraph [
+
+	self deny: (self graph anyOne hasNodeMatching: [ :node | node kindName = 'I' and: [ node methodName = 'method2' ] ])
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testIMethod3CallsMethod5FromBAndC [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'I' and: [ node methodName = 'method3' ] ].
+
+	m callees
+		detect: [ :node | node kindName = 'B' and: [ node methodName = 'method5' ] ]
+		ifNone: [ self fail ].
+
+	m callees
+		detect: [ :node | node kindName = 'C' and: [ node methodName = 'method5' ] ]
+		ifNone: [ self fail ].
+
+	self assert: m callees size equals: 2
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testIMethod3IsCalledInMain [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'I' and: [ node methodName = 'method3' ] ].
+
+	self assert: m callers size equals: 1.
+	self assert: (m callers anySatisfy: [ :caller | caller kindName = 'Main' and: [ caller methodName = 'main' ] ])
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testIMethod4IsCalledInMain [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'I' and: [ node methodName = 'method4' ] ].
+
+	self assert: m callers size equals: 1.
+	self assert: (m callers anySatisfy: [ :caller | caller kindName = 'Main' and: [ caller methodName = 'main' ] ])
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testIMethod4IsCallsNothing [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'I' and: [ node methodName = 'method4' ] ].
+
+	self assertEmpty: m callees
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testIMethod5IsNotInTheCallgraph [
+
+	self deny: (self graph anyOne hasNodeMatching: [ :node | node kindName = 'I' and: [ node methodName = 'method5' ] ])
+]
+
+{ #category : 'tests' }
 FamixJavaCHAExample2Test >> testMainCallsBConstructor [
 
 	| main |
