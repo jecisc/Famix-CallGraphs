@@ -43,11 +43,6 @@ FamixCallGraphNode >> addCaller: aNode [
 	callers add: aNode
 ]
 
-{ #category : 'API' }
-FamixCallGraphNode >> allNodesMatching: aBlock [
-	1halt.
-]
-
 { #category : 'accessing' }
 FamixCallGraphNode >> callees [
 	^ callees
@@ -61,18 +56,7 @@ FamixCallGraphNode >> callers [
 { #category : 'API' }
 FamixCallGraphNode >> firstNodeMatching: aBlock [
 
-	^ self firstNodeMatching: aBlock visited: Set new
-]
-
-{ #category : 'API' }
-FamixCallGraphNode >> firstNodeMatching: aBlock visited: aCollection [
-
-	(aCollection includes: self) ifFalse: [
-			(aBlock value: self) ifTrue: [ ^ self ].
-			aCollection add: self ].
-
-	self callees do: [ :aNode | (aNode firstNodeMatching: aBlock) ifNotNil: [ :result | ^ result ] ].
-
+	self withDeep: #callees do: [ :node | (aBlock value: node) ifTrue: [ ^ node ] ].
 	^ nil
 ]
 
@@ -80,6 +64,12 @@ FamixCallGraphNode >> firstNodeMatching: aBlock visited: aCollection [
 FamixCallGraphNode >> hasCallees [
 
 	^ self callees isNotEmpty
+]
+
+{ #category : 'testing' }
+FamixCallGraphNode >> hasNodeMatching: aBlock [
+
+	^ (self firstNodeMatching: aBlock) isNotNil
 ]
 
 { #category : 'comparing' }

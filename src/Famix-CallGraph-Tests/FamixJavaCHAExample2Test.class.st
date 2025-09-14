@@ -23,6 +23,78 @@ FamixJavaCHAExample2Test >> testAMethod1IsCalledInMain [
 ]
 
 { #category : 'tests' }
+FamixJavaCHAExample2Test >> testAMethod1IsCallsNothing [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'A' and: [ node methodName = 'method1' ] ].
+
+	self assertEmpty: m callees
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testBMethod5IsCalledInIMethod3 [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'B' and: [ node methodName = 'method5' ] ].
+
+	self assert: m callers size equals: 1.
+	self assert: (m callers anySatisfy: [ :caller | caller kindName = 'I' and: [ caller methodName = 'method3' ] ])
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testBMethod5IsCallsNothing [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'B' and: [ node methodName = 'method5' ] ].
+
+	self assertEmpty: m callees
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testCMethod1IsCalledInMain [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'method1' ] ].
+
+	self assert: m callers size equals: 1.
+	self assert: (m callers anySatisfy: [ :caller | caller kindName = 'Main' and: [ caller methodName = 'main' ] ])
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testCMethod1IsCallsNothing [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'method1' ] ].
+
+	self assertEmpty: m callees
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testCMethod5IsCalledInIMethod3 [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'method5' ] ].
+
+	self assert: m callers size equals: 1.
+	self assert: (m callers anySatisfy: [ :caller | caller kindName = 'I' and: [ caller methodName = 'method3' ] ])
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testCMethod5IsCallsNothing [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'C' and: [ node methodName = 'method5' ] ].
+
+	self assertEmpty: m callees
+]
+
+{ #category : 'tests' }
+FamixJavaCHAExample2Test >> testIMethod1IsNotInTheCallgraph [
+
+	self deny: (self graph anyOne hasNodeMatching: [ :node | node kindName = 'I' and: [ node methodName = 'method1' ] ])
+]
+
+{ #category : 'tests' }
 FamixJavaCHAExample2Test >> testMainCallsBConstructor [
 
 	| main |
