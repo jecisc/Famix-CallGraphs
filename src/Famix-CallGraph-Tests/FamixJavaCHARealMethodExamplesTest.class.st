@@ -12,6 +12,13 @@ FamixJavaCHARealMethodExamplesTest class >> browseSources [
 	super browseSources
 ]
 
+{ #category : 'open sources' }
+FamixJavaCHARealMethodExamplesTest >> openSources [
+
+	<script: 'self new openSources'>
+	super openSources
+]
+
 { #category : 'tests' }
 FamixJavaCHARealMethodExamplesTest >> testInheritedMethod [
 	"C inherits from B. Method is in B"

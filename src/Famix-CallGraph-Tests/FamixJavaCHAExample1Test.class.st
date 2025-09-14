@@ -12,6 +12,13 @@ FamixJavaCHAExample1Test class >> browseSources [
 	super browseSources
 ]
 
+{ #category : 'open sources' }
+FamixJavaCHAExample1Test >> openSources [
+
+	<script: 'self new openSources'>
+	super openSources
+]
+
 { #category : 'tests - callgraph' }
 FamixJavaCHAExample1Test >> testAConstructorCallsObjectConstructor [
 

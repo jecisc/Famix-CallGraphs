@@ -5,6 +5,13 @@ Class {
 	#package : 'Famix-CallGraph-Tests'
 }
 
+{ #category : 'open sources' }
+FamixJavaCHAExample2Test >> openSources [
+
+	<script: 'self new openSources'>
+	super openSources
+]
+
 { #category : 'tests' }
 FamixJavaCHAExample2Test >> testAMethod1IsCalledInMain [
 

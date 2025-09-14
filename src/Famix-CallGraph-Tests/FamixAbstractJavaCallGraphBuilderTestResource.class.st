@@ -10,6 +10,18 @@ Class {
 }
 
 { #category : 'accessing' }
+FamixAbstractJavaCallGraphBuilderTestResource class >> javaSourcesFolder [
+	"Return the java folder containing the sources to parse for those tests"
+
+	| folder |
+	folder := FamixCallGraphBridge sources / ((self name withoutPrefix: 'FamixJavaCHA') withoutSuffix: 'Resource') uncapitalized.
+
+	folder ifAbsent: [ self error: 'Folder does not exists ' , folder pathString ].
+
+	^ folder
+]
+
+{ #category : 'accessing' }
 FamixAbstractJavaCallGraphBuilderTestResource >> entryPoints [
 
 	^ model allMethods select: [ :method | method name = 'main' ]
@@ -22,14 +34,7 @@ FamixAbstractJavaCallGraphBuilderTestResource >> graph [
 
 { #category : 'accessing' }
 FamixAbstractJavaCallGraphBuilderTestResource >> javaSourcesFolder [
-	"Return the java folder containing the sources to parse for those tests"
-
-	| folder |
-	folder := FamixCallGraphBridge sources / ((self class name withoutPrefix: 'FamixJavaCHA') withoutSuffix: 'Resource') uncapitalized.
-
-	folder ifAbsent: [ self error: 'Folder does not exists ' , folder pathString ].
-
-	^ folder
+	^ self class javaSourcesFolder
 ]
 
 { #category : 'accessing' }

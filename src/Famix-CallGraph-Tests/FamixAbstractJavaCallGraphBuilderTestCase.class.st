@@ -45,6 +45,13 @@ FamixAbstractJavaCallGraphBuilderTestCase >> model [
 	^ self sourceResource model
 ]
 
+{ #category : 'open sources' }
+FamixAbstractJavaCallGraphBuilderTestCase >> openSources [
+
+	<script: 'self new openSources'>
+	self resources anyOne javaSourcesFolder openInOSFileBrowser
+]
+
 { #category : 'helpers' }
 FamixAbstractJavaCallGraphBuilderTestCase >> sourceResource [
 	"I return the instance of the test resource I'm using to build the sources of a java project"
