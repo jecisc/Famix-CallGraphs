@@ -7,5 +7,8 @@ public class Main {
         s = a.m();
         s = b.m();
         System.out.println(s);
+
+        E e = new E();
+        System.out.println(e.getE());
     }
 }
