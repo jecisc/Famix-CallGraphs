@@ -1,17 +1,17 @@
 Extension { #name : 'FamixJavaClass' }
 
 { #category : '*Famix-CallGraph' }
-FamixJavaClass >> lookupMethodNamed: aString [
+FamixJavaClass >> lookupMethodWithSignature: aString [
 
 	self withSuperclassesDo: [ :class |
 			class methods
-				detect: [ :method | method name = aString ]
+				detect: [ :method | method signature = aString ]
 				ifFound: [ :method | ^ method ] ].
 
 	self withSuperclassesDo: [ :class |
 			class allImplementedInterfacesDo: [ :interface |
 					interface methods
-						detect: [ :method | method name = aString ]
+						detect: [ :method | method signature = aString ]
 						ifFound: [ :method | ^ method ] ] ].
 
 	^ nil

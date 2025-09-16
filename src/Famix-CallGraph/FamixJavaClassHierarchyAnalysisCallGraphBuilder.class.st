@@ -15,7 +15,7 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> addEdgesTo: aNode for: invoca
 	| nodes |
 	nodes := possibleRuntimeTypes
 		         select: [ :type | type implementesMethodEquivalentTo: invocation invokedEntity ]
-		         thenCollect: [ :type | self nodeForMethodNamed: invocation invokedEntity name kind: type ].
+		         thenCollect: [ :type | self nodeForMethodSignature: invocation invokedEntity signature kind: type ].
 	nodes ifEmpty: [ self error: 'We should not get here?' ] ifNotEmpty: [ nodes do: [ :node | aNode addCallee: node ] ]
 ]
 
@@ -62,17 +62,17 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> initialize [
 ]
 
 { #category : 'building' }
-FamixJavaClassHierarchyAnalysisCallGraphBuilder >> nodeForMethodNamed: aString kind: kind [
+FamixJavaClassHierarchyAnalysisCallGraphBuilder >> nodeForMethodSignature: aString kind: kind [
 
 	| node |
 	visited
-		detect: [ :aNode | aNode methodName = aString and: [ aNode kind = kind ] ]
+		detect: [ :aNode | aNode methodSignature = aString and: [ aNode kind = kind ] ]
 		ifFound: [ :aNode | ^ aNode ].
 	worklist
-		detect: [ :aNode | aNode methodName = aString and: [ aNode kind = kind ] ]
+		detect: [ :aNode | aNode methodSignature = aString and: [ aNode kind = kind ] ]
 		ifFound: [ :aNode | ^ aNode ].
 
-	node := FamixCallGraphNode methodName: aString kind: kind.
+	node := FamixCallGraphNode methodSignature: aString kind: kind.
 
 	worklist add: node.
 

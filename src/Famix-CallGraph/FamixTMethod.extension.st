@@ -3,7 +3,7 @@ Extension { #name : 'FamixTMethod' }
 { #category : '*Famix-CallGraph' }
 FamixTMethod >> asCallGraphNode [
 
-	^ FamixCallGraphNode methodName: self name kind: self parentType
+	^ FamixCallGraphNode methodSignature: self signature kind: self parentType
 ]
 
 { #category : '*Famix-CallGraph' }

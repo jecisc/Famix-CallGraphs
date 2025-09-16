@@ -2,7 +2,7 @@ Class {
 	#name : 'FamixCallGraphNode',
 	#superclass : 'Object',
 	#instVars : [
-		'methodName',
+		'methodSignature',
 		'kind',
 		'realMethod',
 		'callers',
@@ -13,10 +13,10 @@ Class {
 }
 
 { #category : 'instance creation' }
-FamixCallGraphNode class >> methodName: aString kind: aFamixType [
+FamixCallGraphNode class >> methodSignature: aString kind: aFamixType [
 
 	^ self new
-		  methodName: aString;
+		  methodSignature: aString;
 		  kind: aFamixType;
 		  yourself
 ]
@@ -27,7 +27,7 @@ FamixCallGraphNode >> = anObject [
 
 	self == anObject ifTrue: [ ^ true ].
 	self class = anObject class ifFalse: [ ^ false ].
-	^ kind = anObject kind and: [ methodName = anObject methodName ]
+	^ methodSignature = anObject methodSignature and: [ kind = anObject kind ]
 ]
 
 { #category : 'adding' }
@@ -76,7 +76,7 @@ FamixCallGraphNode >> hasNodeMatching: aBlock [
 FamixCallGraphNode >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ kind hash bitXor: methodName hash
+	^ methodSignature hash bitXor: kind hash
 ]
 
 { #category : 'initialization' }
@@ -162,13 +162,18 @@ FamixCallGraphNode >> kindName [
 { #category : 'accessing' }
 FamixCallGraphNode >> methodName [
 
-	^ methodName
+	^ self realMethod name
 ]
 
 { #category : 'accessing' }
-FamixCallGraphNode >> methodName: anObject [
+FamixCallGraphNode >> methodSignature [
 
-	methodName := anObject
+	^ methodSignature
+]
+
+{ #category : 'accessing' }
+FamixCallGraphNode >> methodSignature: anObject [
+	methodSignature := anObject
 ]
 
 { #category : 'accessing' }
@@ -186,14 +191,14 @@ FamixCallGraphNode >> printOn: aStream [
 		nextPutAll: ' (';
 		nextPutAll: self kindName;
 		nextPutAll: '>>';
-		nextPutAll: methodName;
+		nextPutAll: self methodSignature;
 		nextPutAll: ')'
 ]
 
 { #category : 'accessing' }
 FamixCallGraphNode >> realMethod [
 
-	^ realMethod ifNil: [ realMethod := (kind lookupMethodNamed: methodName) ifNil: [ self error: 'This should not happen' ] ]
+	^ realMethod ifNil: [ realMethod := (kind lookupMethodWithSignature: methodSignature) ifNil: [ self error: 'This should not happen' ] ]
 ]
 
 { #category : 'accessing' }

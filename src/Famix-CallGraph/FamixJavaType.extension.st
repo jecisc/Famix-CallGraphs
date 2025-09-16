@@ -1,9 +1,9 @@
 Extension { #name : 'FamixJavaType' }
 
 { #category : '*Famix-CallGraph' }
-FamixJavaType >> lookupMethodNamed: aString [
+FamixJavaType >> lookupMethodWithSignature: aString [
 
 	^ self methods
-		  detect: [ :method | method name = aString ]
+		  detect: [ :method | method signature = aString ]
 		  ifNone: [ nil ]
 ]
