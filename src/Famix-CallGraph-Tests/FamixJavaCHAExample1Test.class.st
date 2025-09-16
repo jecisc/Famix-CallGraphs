@@ -149,6 +149,74 @@ FamixJavaCHAExample1Test >> testCToStringHasTwoCallers [
 	self assert: (toString callers anySatisfy: [ :caller | caller kindName = 'A' and: [ caller methodName = 'm' ] ])
 ]
 
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testEConstructorCallees [
+
+	| constructor |
+	self skip. "Todo + cleaning to do afterward https://github.com/moosetechnology/VerveineJ/issues/161"
+	constructor := self graph anyOne callees detect: [ :node | node kindName = 'E' and: [ node realMethod isConstructor ] ].
+
+	self assert: constructor callees size equals: 2.
+	self assert: (constructor callees anySatisfy: [ :node | node kindName = 'object' and: [ node realMethod isConstructor ] ]).
+	self assert: (constructor callees anySatisfy: [ :node | node kindName = 'F' and: [ node methodName = 'hello' ] ])
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testEConstructorIsCalledByMain [
+
+	| constructor |
+	constructor := self graph anyOne callees detect: [ :node | node kindName = 'E' and: [ node realMethod isConstructor ] ].
+
+	self assert: constructor callers size equals: 1.
+	self assert: (constructor callers anySatisfy: [ :node | node kindName = 'Main' and: [ node methodName = 'main' ] ])
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testEGetECallsNothing [
+
+	| m |
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'E' and: [ node methodName = 'getE' ] ].
+
+	self deny: m hasCallees
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testEGetEIsCalledByMain [
+
+	| constructor |
+	constructor := self graph anyOne callees detect: [ :node | node kindName = 'E' and: [ node methodName = 'getE' ] ].
+
+	self assert: constructor callers size equals: 1.
+	self assert: (constructor callers anySatisfy: [ :node | node kindName = 'Main' and: [ node methodName = 'main' ] ])
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testESetEIsNotInTheCallgraph [
+
+	self deny: (self graph anyOne hasNodeMatching: [ :node | node kindName = 'E' and: [ node methodName = 'setE' ] ])
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testFHelloCallsNothing [
+
+	| m |
+	self skip. "To fix"
+	m := self graph anyOne firstNodeMatching: [ :node | node kindName = 'F' and: [ node methodName = 'hello' ] ].
+
+	self deny: m hasCallees
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testFHelloIsCalledByEConstructor [
+
+	| constructor |
+	self skip. "To fix"
+	constructor := self graph anyOne callees detect: [ :node | node kindName = 'F' and: [ node methodName = 'hello' ] ].
+
+	self assert: constructor callers size equals: 1.
+	self assert: (constructor callers anySatisfy: [ :node | node kindName = 'E' and: [ node realMethod isConstructor ] ])
+]
+
 { #category : 'tests - api' }
 FamixJavaCHAExample1Test >> testHasCallees [
 
@@ -195,6 +263,28 @@ FamixJavaCHAExample1Test >> testMainCallsBStaticInitializationBlock [
 	main callees
 		detect: [ :node | node kindName = 'B' and: [ node realMethod isStaticInitializationBlock ] ]
 		ifNone: [ self fail: 'Main should call the static initialization block of B' ]
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testMainCallsEConstructor [
+
+	| main |
+	main := self graph anyOne.
+
+	main callees
+		detect: [ :node | node kindName = 'E' and: [ node realMethod isConstructor ] ]
+		ifNone: [ self fail: 'Main should call the constructor of E' ]
+]
+
+{ #category : 'tests - callgraph' }
+FamixJavaCHAExample1Test >> testMainCallsMethodGetEFromE [
+
+	| main methods |
+	main := self graph anyOne.
+
+	methods := main callees select: [ :node | node kindName = 'E' and: [ node methodName = 'getE' ] ].
+
+	self assert: methods size equals: 1
 ]
 
 { #category : 'tests - callgraph' }
