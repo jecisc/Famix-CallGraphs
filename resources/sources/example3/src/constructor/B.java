@@ -11,4 +11,8 @@ public class B {
     B() {
         b = this.initB();
     }
+
+    public String printString() {
+        return this.b;
+    }
 }

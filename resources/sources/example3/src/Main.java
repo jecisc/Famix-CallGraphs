@@ -9,6 +9,6 @@ public class Main {
         System.out.println(a.m("a"));
 
         B b = new C("Test");
-        System.out.println(b.toString());
+        System.out.println(b.printString());
     }
 }

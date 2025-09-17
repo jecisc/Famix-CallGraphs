@@ -18,7 +18,8 @@ public class C extends B {
         return "c";
     }
 
-    public String toString() {
-        return b + c + d;
+    @Override
+    public String printString() {
+        return super.printString() + c + d;
     }
 }
