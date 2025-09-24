@@ -35,14 +35,9 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> build [
 FamixJavaClassHierarchyAnalysisCallGraphBuilder >> computeCallGraphOf: aNode [
 
 	aNode outgoingInvocations do: [ :invocation |
-			invocation receiver
-				ifNil: [
-						invocation invokedEntity isConstructor
-							ifTrue: [ self addEdgesTo: aNode for: invocation types: { invocation invokedEntity parentType } ]
-							ifFalse: [
-									1 halt.
-									self flag: #todo "Check what to do" ] ]
-				ifNotNil: [ self addEdgesTo: aNode for: invocation types: invocation invokedEntity parentType possibleRuntimeTypes ] ].
+			(invocation isSuperInvocation or: [ invocation invokedEntity isConstructor ])
+				ifTrue: [ self addEdgesTo: aNode for: invocation types: { invocation invokedEntity parentType } ]
+				ifFalse: [ self addEdgesTo: aNode for: invocation types: invocation invokedEntity parentType possibleRuntimeTypes ] ].
 
 	visited add: aNode
 ]
