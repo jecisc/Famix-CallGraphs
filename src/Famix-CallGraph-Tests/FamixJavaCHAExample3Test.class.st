@@ -39,7 +39,7 @@ FamixJavaCHAExample3Test >> testBConstructorIsCalledByCConstructor [
 FamixJavaCHAExample3Test >> testBPrintStringCallsNothing [
 
 	| method |
-	method := self graph anyOne callees detect: [ :node | node kindName = 'B' and: [ node methodName = 'printString' ] ].
+	method := self graph entryPoint callees detect: [ :node | node kindName = 'B' and: [ node methodName = 'printString' ] ].
 
 	self deny: method hasCallees
 ]
@@ -48,7 +48,7 @@ FamixJavaCHAExample3Test >> testBPrintStringCallsNothing [
 FamixJavaCHAExample3Test >> testBPrintStringIsCalledByCAndMain [
 
 	| method |
-	method := self graph anyOne callees detect: [ :node | node kindName = 'B' and: [ node methodName = 'printString' ] ].
+	method := self graph entryPoint callees detect: [ :node | node kindName = 'B' and: [ node methodName = 'printString' ] ].
 
 	self assert: method callers size equals: 2.
 	self assert: (method callers anySatisfy: [ :node | node kindName = 'C' and: [ node methodName = 'printString' ] ]).
@@ -59,7 +59,7 @@ FamixJavaCHAExample3Test >> testBPrintStringIsCalledByCAndMain [
 FamixJavaCHAExample3Test >> testCConstructorWithParameterCallees [
 
 	| constructor |
-	constructor := self graph anyOne callees detect: [ :node | node kindName = 'C' and: [ node methodSignature = 'C(String)' ] ].
+	constructor := self graph entryPoint callees detect: [ :node | node kindName = 'C' and: [ node methodSignature = 'C(String)' ] ].
 
 	self assert: constructor callees size equals: 1.
 	self assert: (constructor callees anySatisfy: [ :node | node kindName = 'C' and: [ node methodSignature = 'C()' ] ])
@@ -69,7 +69,7 @@ FamixJavaCHAExample3Test >> testCConstructorWithParameterCallees [
 FamixJavaCHAExample3Test >> testCConstructorWithParameterIsCalledFromMain [
 
 	| constructor |
-	constructor := self graph anyOne callees detect: [ :node | node kindName = 'C' and: [ node methodSignature = 'C(String)' ] ].
+	constructor := self graph entryPoint callees detect: [ :node | node kindName = 'C' and: [ node methodSignature = 'C(String)' ] ].
 
 	self assert: constructor callers size equals: 1.
 	self assert: (constructor callers anySatisfy: [ :node | node kindName = 'Main' and: [ node methodName = 'main' ] ])
@@ -79,7 +79,7 @@ FamixJavaCHAExample3Test >> testCConstructorWithParameterIsCalledFromMain [
 FamixJavaCHAExample3Test >> testCPrintStringCallsSuperPrintString [
 
 	| method |
-	method := self graph anyOne callees detect: [ :node | node kindName = 'C' and: [ node methodName = 'printString' ] ].
+	method := self graph entryPoint callees detect: [ :node | node kindName = 'C' and: [ node methodName = 'printString' ] ].
 
 	self assert: method callees size equals: 1.
 	self assert: (method callees anySatisfy: [ :node | node kindName = 'B' and: [ node methodName = 'printString' ] ])
@@ -112,7 +112,7 @@ FamixJavaCHAExample3Test >> testCSimpleConstructorIsCalledFromConstructorWithPar
 FamixJavaCHAExample3Test >> testDMethod1CalledByMainAndFMethod1 [
 
 	| constructor |
-	constructor := self graph anyOne callees detect: [ :node | node kindName = 'D' and: [ node methodName = 'method1' ] ].
+	constructor := self graph entryPoint callees detect: [ :node | node kindName = 'D' and: [ node methodName = 'method1' ] ].
 
 	self assert: (constructor callers select: [ :node | node kindName = 'Main' and: [ node methodName = 'main' ] ]) size equals: 2.
 	self assert: (constructor callers select: [ :node | node kindName = 'F' and: [ node methodName = 'method1' ] ]) size equals: 1
@@ -122,7 +122,7 @@ FamixJavaCHAExample3Test >> testDMethod1CalledByMainAndFMethod1 [
 FamixJavaCHAExample3Test >> testDMethod1CallsNothing [
 
 	| method |
-	method := self graph anyOne callees detect: [ :node | node kindName = 'D' and: [ node methodName = 'method1' ] ].
+	method := self graph entryPoint callees detect: [ :node | node kindName = 'D' and: [ node methodName = 'method1' ] ].
 
 	self deny: method hasCallees
 ]
@@ -131,7 +131,7 @@ FamixJavaCHAExample3Test >> testDMethod1CallsNothing [
 FamixJavaCHAExample3Test >> testDMethod2CalledByMainAndGMethod1 [
 
 	| constructor |
-	constructor := self graph anyOne callees detect: [ :node | node kindName = 'D' and: [ node methodName = 'method2' ] ].
+	constructor := self graph entryPoint callees detect: [ :node | node kindName = 'D' and: [ node methodName = 'method2' ] ].
 
 	self assert: (constructor callers select: [ :node | node kindName = 'Main' and: [ node methodName = 'main' ] ]) size equals: 1.
 	self assert: (constructor callers select: [ :node | node kindName = 'G' and: [ node methodName = 'method1' ] ]) size equals: 1
@@ -141,7 +141,7 @@ FamixJavaCHAExample3Test >> testDMethod2CalledByMainAndGMethod1 [
 FamixJavaCHAExample3Test >> testDMethod2CallsNothing [
 
 	| method |
-	method := self graph anyOne callees detect: [ :node | node kindName = 'D' and: [ node methodName = 'method2' ] ].
+	method := self graph entryPoint callees detect: [ :node | node kindName = 'D' and: [ node methodName = 'method2' ] ].
 
 	self deny: method hasCallees
 ]
@@ -150,7 +150,7 @@ FamixJavaCHAExample3Test >> testDMethod2CallsNothing [
 FamixJavaCHAExample3Test >> testFMethod1CalledByMain [
 
 	| constructor |
-	constructor := self graph anyOne callees detect: [ :node | node kindName = 'F' and: [ node methodName = 'method1' ] ].
+	constructor := self graph entryPoint callees detect: [ :node | node kindName = 'F' and: [ node methodName = 'method1' ] ].
 
 	self assert: constructor callers size equals: 2.
 	self assert: (constructor callers select: [ :node | node kindName = 'Main' and: [ node methodName = 'main' ] ]) size equals: 2
@@ -160,7 +160,7 @@ FamixJavaCHAExample3Test >> testFMethod1CalledByMain [
 FamixJavaCHAExample3Test >> testFMethod1CallsDMethod1 [
 
 	| method |
-	method := self graph anyOne callees detect: [ :node | node kindName = 'F' and: [ node methodName = 'method1' ] ].
+	method := self graph entryPoint callees detect: [ :node | node kindName = 'F' and: [ node methodName = 'method1' ] ].
 
 	self assert: method callees size equals: 1.
 	self assert: (method callees anySatisfy: [ :node | node kindName = 'D' and: [ node methodName = 'method1' ] ])
@@ -170,7 +170,7 @@ FamixJavaCHAExample3Test >> testFMethod1CallsDMethod1 [
 FamixJavaCHAExample3Test >> testGMethod1CalledByMain [
 
 	| constructor |
-	constructor := self graph anyOne callees detect: [ :node | node kindName = 'G' and: [ node methodName = 'method1' ] ].
+	constructor := self graph entryPoint callees detect: [ :node | node kindName = 'G' and: [ node methodName = 'method1' ] ].
 
 	self assert: constructor callers size equals: 2.
 	self assert: (constructor callers select: [ :node | node kindName = 'Main' and: [ node methodName = 'main' ] ]) size equals: 2
@@ -180,7 +180,7 @@ FamixJavaCHAExample3Test >> testGMethod1CalledByMain [
 FamixJavaCHAExample3Test >> testGMethod1CallsDMethod2 [
 
 	| method |
-	method := self graph anyOne callees detect: [ :node | node kindName = 'G' and: [ node methodName = 'method1' ] ].
+	method := self graph entryPoint callees detect: [ :node | node kindName = 'G' and: [ node methodName = 'method1' ] ].
 
 	self assert: method callees size equals: 1.
 	self assert: (method callees anySatisfy: [ :node | node kindName = 'D' and: [ node methodName = 'method2' ] ])
@@ -190,7 +190,7 @@ FamixJavaCHAExample3Test >> testGMethod1CallsDMethod2 [
 FamixJavaCHAExample3Test >> testGMethod2CalledByMain [
 
 	| constructor |
-	constructor := self graph anyOne callees detect: [ :node | node kindName = 'G' and: [ node methodName = 'method2' ] ].
+	constructor := self graph entryPoint callees detect: [ :node | node kindName = 'G' and: [ node methodName = 'method2' ] ].
 
 	self assert: constructor callers size equals: 1.
 	self assert: (constructor callers select: [ :node | node kindName = 'Main' and: [ node methodName = 'main' ] ]) size equals: 1
@@ -200,7 +200,7 @@ FamixJavaCHAExample3Test >> testGMethod2CalledByMain [
 FamixJavaCHAExample3Test >> testGMethod2CallsNothing [
 
 	| method |
-	method := self graph anyOne callees detect: [ :node | node kindName = 'G' and: [ node methodName = 'method2' ] ].
+	method := self graph entryPoint callees detect: [ :node | node kindName = 'G' and: [ node methodName = 'method2' ] ].
 
 	self deny: method hasCallees
 ]
@@ -209,7 +209,7 @@ FamixJavaCHAExample3Test >> testGMethod2CallsNothing [
 FamixJavaCHAExample3Test >> testMainCallsCConstructor [
 
 	| main |
-	main := self graph anyOne.
+	main := self graph entryPoint.
 
 	main callees
 		detect: [ :node | node kindName = 'C' and: [ node realMethod isConstructor ] ]
@@ -220,7 +220,7 @@ FamixJavaCHAExample3Test >> testMainCallsCConstructor [
 FamixJavaCHAExample3Test >> testMainCallsMethod1FromDFAndG [
 
 	| main |
-	main := self graph anyOne.
+	main := self graph entryPoint.
 
 	self assert: (main callees select: [ :node | node kindName = 'D' and: [ node methodName = 'method1' ] ]) size equals: 2.
 	self assert: (main callees select: [ :node | node kindName = 'F' and: [ node methodName = 'method1' ] ]) size equals: 2.
@@ -232,7 +232,7 @@ FamixJavaCHAExample3Test >> testMainCallsMethod1FromDFAndG [
 FamixJavaCHAExample3Test >> testMainCallsMethod2FromDAndG [
 
 	| main |
-	main := self graph anyOne.
+	main := self graph entryPoint.
 
 	self assert: (main callees select: [ :node | node kindName = 'D' and: [ node methodName = 'method2' ] ]) size equals: 1.
 	self assert: (main callees select: [ :node | node kindName = 'G' and: [ node methodName = 'method2' ] ]) size equals: 1.
@@ -243,7 +243,7 @@ FamixJavaCHAExample3Test >> testMainCallsMethod2FromDAndG [
 FamixJavaCHAExample3Test >> testMainCallsPrintStringFromBAndC [
 
 	| main |
-	main := self graph anyOne.
+	main := self graph entryPoint.
 
 	main callees
 		detect: [ :node | node kindName = 'B' and: [ node methodName = 'printString' ] ]
@@ -260,7 +260,7 @@ FamixJavaCHAExample3Test >> testMainCallsPrintStringFromBAndC [
 FamixJavaCHAExample3Test >> testMainCallsTwoMethodsWithSameNameButDifferentSignature [
 
 	| main m1 m2 |
-	main := self graph anyOne.
+	main := self graph entryPoint.
 
 	m1 := main callees
 		      detect: [ :node | node kindName = 'A' and: [ node methodSignature = 'm()' ] ]

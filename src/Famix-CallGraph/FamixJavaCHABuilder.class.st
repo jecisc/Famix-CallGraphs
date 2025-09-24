@@ -1,6 +1,15 @@
+"
+I am a class used to build a CHA call graph for a Moose java model.
+
+To be used you need to define entry points for your application lake this:
+
+```st
+	(FamixJavaCHABuilder entryPoints: (model allMethods select: [ :method | method name = 'main' ])) build
+```
+"
 Class {
-	#name : 'FamixJavaClassHierarchyAnalysisCallGraphBuilder',
-	#superclass : 'FamixAbstractClassHierarchyAnalysisCallGraphBuilder',
+	#name : 'FamixJavaCHABuilder',
+	#superclass : 'FamixAbstractCallGraphBuilder',
 	#instVars : [
 		'visited',
 		'worklist'
@@ -10,7 +19,7 @@ Class {
 }
 
 { #category : 'building' }
-FamixJavaClassHierarchyAnalysisCallGraphBuilder >> addEdgesTo: aNode for: invocation types: possibleRuntimeTypes [
+FamixJavaCHABuilder >> addEdgesTo: aNode for: invocation types: possibleRuntimeTypes [
 
 	| nodes |
 	nodes := possibleRuntimeTypes
@@ -20,7 +29,7 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> addEdgesTo: aNode for: invoca
 ]
 
 { #category : 'building' }
-FamixJavaClassHierarchyAnalysisCallGraphBuilder >> build [
+FamixJavaCHABuilder >> build [
 
 	worklist addAll: self entryPoints.
 
@@ -28,11 +37,11 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> build [
 			self computeCallGraphOf: worklist first.
 			visited add: worklist removeFirst ].
 
-	^ self entryPoints
+	^ graph
 ]
 
 { #category : 'building' }
-FamixJavaClassHierarchyAnalysisCallGraphBuilder >> computeCallGraphOf: aNode [
+FamixJavaCHABuilder >> computeCallGraphOf: aNode [
 
 	aNode outgoingInvocations do: [ :invocation |
 			(invocation isSuperInvocation or: [ invocation invokedEntity isConstructor ])
@@ -43,7 +52,7 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> computeCallGraphOf: aNode [
 ]
 
 { #category : 'initialization' }
-FamixJavaClassHierarchyAnalysisCallGraphBuilder >> initialize [
+FamixJavaCHABuilder >> initialize [
 
 	self flag: #todo. "Method of same name but different signatures	"
 	self flag: #todo. "Manage graph reduction."
@@ -57,7 +66,7 @@ FamixJavaClassHierarchyAnalysisCallGraphBuilder >> initialize [
 ]
 
 { #category : 'building' }
-FamixJavaClassHierarchyAnalysisCallGraphBuilder >> nodeForMethodSignature: aString kind: kind [
+FamixJavaCHABuilder >> nodeForMethodSignature: aString kind: kind [
 
 	| node |
 	visited

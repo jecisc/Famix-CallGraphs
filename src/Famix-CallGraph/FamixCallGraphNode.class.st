@@ -43,6 +43,25 @@ FamixCallGraphNode >> addCaller: aNode [
 	callers add: aNode
 ]
 
+{ #category : 'API' }
+FamixCallGraphNode >> allCallees [
+
+	^ self allCalleesCollect: #yourself
+]
+
+{ #category : 'API' }
+FamixCallGraphNode >> allCalleesCollect: aBlock [
+
+	^ self deep: #callees collect: aBlock
+]
+
+{ #category : 'API' }
+FamixCallGraphNode >> allCalleesDo: aBlock [
+	"Execute the block with myself and all the nodes I call transitively as argument for each iteration."
+
+	self deep: #callees do: aBlock
+]
+
 { #category : 'accessing' }
 FamixCallGraphNode >> callees [
 	^ callees
@@ -54,7 +73,7 @@ FamixCallGraphNode >> callers [
 ]
 
 { #category : 'API' }
-FamixCallGraphNode >> firstNodeMatching: aBlock [
+FamixCallGraphNode >> firstCalleeMatching: aBlock [
 
 	self withDeep: #callees do: [ :node | (aBlock value: node) ifTrue: [ ^ node ] ].
 	^ nil
@@ -69,7 +88,7 @@ FamixCallGraphNode >> hasCallees [
 { #category : 'testing' }
 FamixCallGraphNode >> hasNodeMatching: aBlock [
 
-	^ (self firstNodeMatching: aBlock) isNotNil
+	^ (self firstCalleeMatching: aBlock) isNotNil
 ]
 
 { #category : 'comparing' }
@@ -93,7 +112,7 @@ FamixCallGraphNode >> inspectGraph: aBuilder [
 	<inspectorPresentationOrder: 950 title: 'Graph'>
 	| canvas shapes |
 	canvas := RSCanvas new.
-	shapes := self withAllNodesCollect: [ :node |
+	shapes := self withAllCalleesCollect: [ :node |
 			          | box |
 			          box := RSBox new
 				                 size: 30;
@@ -208,13 +227,19 @@ FamixCallGraphNode >> realMethod: anObject [
 ]
 
 { #category : 'API' }
-FamixCallGraphNode >> withAllNodesCollect: aBlock [
+FamixCallGraphNode >> withAllCallees [
+
+	^ self withAllCalleesCollect: #yourself
+]
+
+{ #category : 'API' }
+FamixCallGraphNode >> withAllCalleesCollect: aBlock [
 
 	^ self withDeep: #callees collect: aBlock
 ]
 
 { #category : 'API' }
-FamixCallGraphNode >> withAllNodesDo: aBlock [
+FamixCallGraphNode >> withAllCalleesDo: aBlock [
 	"Execute the block with myself and all the nodes I call transitively as argument for each iteration."
 
 	self withDeep: #callees do: aBlock

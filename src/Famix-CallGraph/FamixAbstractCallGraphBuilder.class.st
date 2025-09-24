@@ -5,8 +5,7 @@ Class {
 	#name : 'FamixAbstractCallGraphBuilder',
 	#superclass : 'Object',
 	#instVars : [
-		'graph',
-		'entryPoints'
+		'graph'
 	],
 	#category : 'Famix-CallGraph',
 	#package : 'Famix-CallGraph'
@@ -35,16 +34,13 @@ FamixAbstractCallGraphBuilder >> build [
 { #category : 'accessing' }
 FamixAbstractCallGraphBuilder >> entryPoints [
 
-	^ entryPoints
+	^ graph entryPoints
 ]
 
 { #category : 'accessing' }
 FamixAbstractCallGraphBuilder >> entryPoints: aCollection [
 
-	entryPoints := aCollection collect: [ :method |
-			               method isMooseObject
-				               ifTrue: [ method asCallGraphNode ]
-				               ifFalse: [ method ] ]
+	^ graph entryPoints: aCollection
 ]
 
 { #category : 'accessing' }
@@ -61,6 +57,7 @@ FamixAbstractCallGraphBuilder >> graph: anObject [
 
 { #category : 'initialization' }
 FamixAbstractCallGraphBuilder >> initialize [
+
 	super initialize.
-	graph := OrderedDictionary new
+	graph := FamixCallGraph new
 ]
