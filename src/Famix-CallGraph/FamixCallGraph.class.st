@@ -35,3 +35,9 @@ FamixCallGraph >> entryPoints: aCollection [
 				               ifTrue: [ method asCallGraphNode ]
 				               ifFalse: [ method ] ]
 ]
+
+{ #category : 'helpers' }
+FamixCallGraph >> numberOfNodes [
+
+	^ self allNodes size
+]
