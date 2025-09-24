@@ -17,10 +17,10 @@ FamixJavaCHAExample3Test >> testBConstructorCallees [
 
 	| constructor |
 	self skip. "Todo + cleaning to do afterward https://github.com/moosetechnology/VerveineJ/issues/161"
-	constructor := self graph anyOne callees detect: [ :node | node kindName = 'B' and: [ node realMethod isConstructor ] ].
+	constructor := self graph entryPoint callees detect: [ :node | node kindName = 'B' and: [ node isConstructor ] ].
 
 	self assert: constructor callees size equals: 2.
-	self assert: (constructor callees anySatisfy: [ :node | node kindName = 'object' and: [ node realMethod isConstructor ] ]).
+	self assert: (constructor callees anySatisfy: [ :node | node kindName = 'object' and: [ node isConstructor ] ]).
 	self assert: (constructor callees anySatisfy: [ :node | node kindName = 'B' and: [ node methodName = 'initB' ] ])
 ]
 
@@ -29,10 +29,10 @@ FamixJavaCHAExample3Test >> testBConstructorIsCalledByCConstructor [
 
 	| constructor |
 	self skip. "Waiting for VerveineJ"
-	constructor := self graph anyOne callees detect: [ :node | node kindName = 'B' and: [ node realMethod isConstructor ] ].
+	constructor := self graph entryPoint callees detect: [ :node | node kindName = 'B' and: [ node isConstructor ] ].
 
 	self assert: constructor callers size equals: 1.
-	self assert: (constructor callers anySatisfy: [ :node | node kindName = 'C' and: [ node realMethod isConstructor ] ])
+	self assert: (constructor callers anySatisfy: [ :node | node kindName = 'C' and: [ node isConstructor ] ])
 ]
 
 { #category : 'tests' }
@@ -90,10 +90,10 @@ FamixJavaCHAExample3Test >> testCSimpleConstructorCallees [
 
 	| constructor |
 	self skip. "Todo + cleaning to do afterward https://github.com/moosetechnology/VerveineJ/issues/161"
-	constructor := self graph anyOne callees detect: [ :node | node kindName = 'C' and: [ node methodSignature = 'C()' ] ].
+	constructor := self graph entryPoint callees detect: [ :node | node kindName = 'C' and: [ node methodSignature = 'C()' ] ].
 
 	self assert: constructor callees size equals: 2.
-	self assert: (constructor callees anySatisfy: [ :node | node kindName = 'B' and: [ node realMethod isConstructor ] ]).
+	self assert: (constructor callees anySatisfy: [ :node | node kindName = 'B' and: [ node isConstructor ] ]).
 	self assert: (constructor callees anySatisfy: [ :node | node kindName = 'C' and: [ node methodName = 'initC' ] ])
 ]
 
@@ -102,7 +102,7 @@ FamixJavaCHAExample3Test >> testCSimpleConstructorIsCalledFromConstructorWithPar
 
 	| constructor |
 	self skip. "Waiting for VerveineJ"
-	constructor := self graph anyOne callees detect: [ :node | node kindName = 'C' and: [ node methodSignature = 'C()' ] ].
+	constructor := self graph entryPoint callees detect: [ :node | node kindName = 'C' and: [ node methodSignature = 'C()' ] ].
 
 	self assert: constructor callers size equals: 1.
 	self assert: (constructor callers anySatisfy: [ :node | node kindName = 'C' and: [ node methodSignature = 'C(String)' ] ])
@@ -212,7 +212,7 @@ FamixJavaCHAExample3Test >> testMainCallsCConstructor [
 	main := self graph entryPoint.
 
 	main callees
-		detect: [ :node | node kindName = 'C' and: [ node realMethod isConstructor ] ]
+		detect: [ :node | node kindName = 'C' and: [ node isConstructor ] ]
 		ifNone: [ self fail: 'Main should call the constructor of C' ]
 ]
 

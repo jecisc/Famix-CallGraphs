@@ -197,7 +197,7 @@ FamixJavaCHAExample2Test >> testMainCallsBConstructor [
 	main := self graph entryPoint.
 
 	main callees
-		detect: [ :node | node kindName = 'B' and: [ node realMethod isConstructor ] ]
+		detect: [ :node | node kindName = 'B' and: [ node isConstructor ] ]
 		ifNone: [ self fail: 'Main should call the constructor of B' ]
 ]
 

@@ -154,6 +154,12 @@ FamixCallGraphNode >> inspectionSource: aBuilder [
 		  beNotEditable
 ]
 
+{ #category : 'testing' }
+FamixCallGraphNode >> isConstructor [
+
+	^ self realMethod isConstructor
+]
+
 { #category : 'API' }
 FamixCallGraphNode >> isStub [
 

@@ -54,8 +54,6 @@ FamixJavaCHABuilder >> computeCallGraphOf: aNode [
 { #category : 'initialization' }
 FamixJavaCHABuilder >> initialize [
 
-	self flag: #todo. "Method of same name but different signatures	"
-	self flag: #todo. "Manage graph reduction."
 	self flag: #todo. "Manage graph exploration:
 	- Is there a path between two methods?
 	- What are all the paths between two methods?
