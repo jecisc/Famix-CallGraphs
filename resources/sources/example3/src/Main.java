@@ -1,3 +1,5 @@
+import abstractClass.H;
+import abstractClass.J;
 import constructor.B;
 import constructor.C;
 import signature.A;
@@ -20,5 +22,11 @@ public class Main {
         d.method1();
         f.method1();
         g.method2();
+
+        H h = new J();
+        h.methodA();
+        h.methodB();
+        h.methodD();
+        h.methodF();
     }
 }
