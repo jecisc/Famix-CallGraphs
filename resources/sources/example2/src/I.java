@@ -12,4 +12,8 @@ public interface I {
     }
 
     String method5();
+
+    default void method6(){
+        // Nothing to do
+    }
 }

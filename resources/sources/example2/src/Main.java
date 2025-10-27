@@ -5,6 +5,7 @@ public class Main {
         System.out.println(b.method2());
         System.out.println(b.method3());
         System.out.println(b.method4());
+        b.method6();
 
     }
 }

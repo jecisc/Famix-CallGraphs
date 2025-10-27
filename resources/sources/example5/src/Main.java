@@ -29,5 +29,12 @@ public class Main {
         } catch (ArithmeticException ex) {
             System.out.println("\nCaught expected exception: " + ex.getMessage());
         }
+
+        // Print a single direction
+        Directions.EAST.print();          // → EAST
+
+        // Print every direction
+        System.out.println("All directions:");
+        Directions.printAll();
     }
 }
