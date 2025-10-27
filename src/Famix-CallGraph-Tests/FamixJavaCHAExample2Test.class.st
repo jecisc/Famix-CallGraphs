@@ -262,6 +262,20 @@ FamixJavaCHAExample2Test >> testMainCallsMethod4FromIAndI2 [
 ]
 
 { #category : 'tests' }
+FamixJavaCHAExample2Test >> testMainCallsMethod6FromI [
+	"Regression test when invoking a default method without statements"
+
+	| main |
+	main := self graph entryPoint.
+
+	main callees
+		detect: [ :node | node kindName = 'I' and: [ node methodName = 'method6' ] ]
+		ifNone: [ self fail: 'Main should call method6 from the class I' ].
+
+	self assert: (main callees select: [ :node | node methodName = 'method6' ]) size equals: 1
+]
+
+{ #category : 'tests' }
 FamixJavaCHAExample2Test >> testMainCallsStubPrintln4Times [
 
 	| main printlns |
