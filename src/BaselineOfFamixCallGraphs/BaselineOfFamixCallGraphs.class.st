@@ -12,22 +12,19 @@ Class {
 BaselineOfFamixCallGraphs >> baseline: spec [
 
 	<baseline>
-	spec for: #common do: [ "Dependencies"
+	spec for: #common do: [
 			self gitBridge: spec.
 
-			"Packages"
 			spec
-				package: 'Famix-CallGraph';
-				package: 'Famix-CallGraph-Tests' with: [ spec requires: #( 'Famix-CallGraph' 'GitBridge' ) ].
-
-			"Groups"
+				package: 'Famix-CallGraphs';
+				package: 'Famix-CallGraphs-Tests' with: [ spec requires: #( 'Famix-CallGraphs' 'GitBridge' ) ]. "Groups"
 			spec
-				group: 'Core' with: #( 'Famix-CallGraph' );
-				group: 'Tests' with: #( 'Famix-CallGraph-Tests' ) ].
+				group: 'Core' with: #( 'Famix-CallGraphs' );
+				group: 'Tests' with: #( 'Famix-CallGraphs-Tests' ) ].
 
 	spec for: #NeedsFamix do: [
 			spec baseline: 'Famix' with: [ spec repository: 'github://moosetechnology/Famix:development/src' ].
-			spec package: 'Famix-CallGraph' with: [ spec requires: #( Famix ) ] ]
+			spec package: 'Famix-CallGraphs' with: [ spec requires: #( Famix ) ] ]
 ]
 
 { #category : 'accessing' }
