@@ -4,6 +4,20 @@ The goal of this project is to provide call graph builders for Famix models.
 
 For now we only support the CHA call graph algorithm for Java language, but this is planed to evolve.
 
+<!-- TOC -->
+
+- [Famix-CallGraphs](#famix-callgraphs)
+  - [Installation](#installation)
+  - [Documentation](#documentation)
+    - [Class Hierarchy Analysis (CHA)](#class-hierarchy-analysis-cha)
+    - [CallGraph result](#callgraph-result)
+    - [Famix-CallGraphs and FamixBridge](#famix-callgraphs-and-famixbridge)
+    - [Testing of the project](#testing-of-the-project)
+    - [Edge cases](#edge-cases)
+      - [Java static initialization blocks](#java-static-initialization-blocks)
+
+<!-- /TOC -->
+
 ## Installation 
 
 To install the project in your Pharo image execute:
@@ -25,19 +39,19 @@ To add it to your baseline:
 
 ## Documentation
 
-### CHA 
+### Class Hierarchy Analysis (CHA)
 
 In order to use the CHA (Class Hierarchy Analysis) call graph builder you should use the class `FamixJavaCHABuilder`. You can provide it with `FamixJavaMethod` instances using `entryPoint:` or `entryPoints:`.
 
 Examples:
 
 ```smalltalk
-    (FamixJavaCHABuilder entryPoints: (model allMethods select: [ :method | method name = 'main' ])) build
+(FamixJavaCHABuilder entryPoints: (model allMethods select: [ :method | method name = 'main' ])) build
 ```
 
 
 ```smalltalk
-    (FamixJavaCHABuilder entryPoint: (tagcollections31 entityNamed: #'org.apache.commons.collections.map.HashedMap.readObject(ObjectInputStream)')) build.
+(FamixJavaCHABuilder entryPoint: (tagcollections31 entityNamed: #'org.apache.commons.collections.map.HashedMap.readObject(ObjectInputStream)')) build.
 ```
 
 ### CallGraph result
@@ -48,15 +62,15 @@ This class will contain a few navigation methods and the list of entry points re
 A `FamixCallGraphNode` knows a few useful information:
 - The `methodSignature` corresponding to the node
 - The `kind` which is a Famix entity that is holding the method
-- The `realMethod`` corresponding to the node
+- The `realMethod` corresponding to the node
 - The `callees` which is the list of nodes called by the current node
 - The `callers` which is the list of nodes calling the current node
 
->> Note: The `kind` is not necessarily the entity defining the method in the Java code depending on the call graph algorithm. The method can be defined in an interface or a superclass but the kind is here to provide context for the callgraph building.
+> Note: The `kind` is not necessarily the entity defining the method in the Java code depending on the call graph algorithm. The method can be defined in an interface or a superclass but the kind is here to provide context for the callgraph building.
 
 On top of this, the call graph and call graph nodes are providing some methods to explore the call graph.
 
->> Note: This is still a work in progress. I currently implemented only what is needed by the tests of the project. In the future I want to add an integration with pharo-ai graph algorithms.
+> Note: This is still a work in progress. I currently implemented only what is needed by the tests of the project. In the future I want to add an integration with pharo-ai graph algorithms.
 
 ### Famix-CallGraphs and FamixBridge
 
