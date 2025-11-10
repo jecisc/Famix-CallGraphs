@@ -1,7 +1,7 @@
 SmalltalkCISpec {
   #loading : [
     SCIMetacelloLoadSpec {
-      #baseline : 'FamixCallGraph',
+      #baseline : 'FamixCallGraphs',
       #directory : 'src',
       #registerInIceberg : true   
     }
