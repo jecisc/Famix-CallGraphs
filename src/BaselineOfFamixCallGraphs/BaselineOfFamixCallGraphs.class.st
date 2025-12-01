@@ -13,14 +13,20 @@ BaselineOfFamixCallGraphs >> baseline: spec [
 
 	<baseline>
 	spec for: #common do: [
+			"Dependencies"
 			self gitBridge: spec.
 
+			"Packages"
 			spec
 				package: 'Famix-CallGraphs';
-				package: 'Famix-CallGraphs-Tests' with: [ spec requires: #( 'Famix-CallGraphs' 'GitBridge' ) ]. "Groups"
+				package: 'Famix-CallGraphs-Properties' with: [ spec requires: #('Famix-CallGraphs') ];
+				package: 'Famix-CallGraphs-Tests' with: [ spec requires: #( 'Famix-CallGraphs' 'GitBridge' ) ];
+				package: 'Famix-CallGraphs-Properties-Tests' with: [ spec requires: #( 'Famix-CallGraphs-Properties' ) ].
+				
+			"Groups"
 			spec
-				group: 'Core' with: #( 'Famix-CallGraphs' );
-				group: 'Tests' with: #( 'Famix-CallGraphs-Tests' ) ].
+				group: 'Core' with: #( 'Famix-CallGraphs' 'Famix-CallGraphs-Properties' );
+				group: 'Tests' with: #( 'Famix-CallGraphs-Tests' 'Famix-CallGraphs-Properties-Tests' ) ].
 
 	spec for: #NeedsFamix do: [
 			spec baseline: 'Famix' with: [ spec repository: 'github://moosetechnology/Famix:development/src' ].
