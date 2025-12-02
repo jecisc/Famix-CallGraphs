@@ -30,87 +30,87 @@ FamixCallGraphAdditionalPropertiesTest >> testAdditionalProperties [
 	node := self graph entryPoint.
 	self assert: node additionalProperties isNil.
 
-	node additionalPropertiesNamed: #foo put: #bar.
+	node additionalPropertyNamed: #foo put: #bar.
 
 	self assert: node additionalProperties isNotNil
 ]
 
 { #category : 'tests' }
-FamixCallGraphAdditionalPropertiesTest >> testAdditionalPropertiesNamed [
+FamixCallGraphAdditionalPropertiesTest >> testAdditionalPropertyNamed [
 
 	| node |
 	node := self graph entryPoint.
-	self should: [ node additionalPropertiesNamed: #foo ] raise: NotFound.
+	self should: [ node additionalPropertyNamed: #foo ] raise: NotFound.
 
-	node additionalPropertiesNamed: #foo2 put: #bar.
+	node additionalPropertyNamed: #foo2 put: #bar.
 
-	self should: [ node additionalPropertiesNamed: #foo ] raise: NotFound.
-	node additionalPropertiesNamed: #foo put: #bar.
+	self should: [ node additionalPropertyNamed: #foo ] raise: NotFound.
+	node additionalPropertyNamed: #foo put: #bar.
 
-	self assert: (node additionalPropertiesNamed: #foo) equals: #bar
+	self assert: (node additionalPropertyNamed: #foo) equals: #bar
 ]
 
 { #category : 'tests' }
-FamixCallGraphAdditionalPropertiesTest >> testAdditionalPropertiesNamedIfAbsent [
+FamixCallGraphAdditionalPropertiesTest >> testAdditionalPropertyNamedIfAbsent [
 
 	| node |
 	node := self graph entryPoint.
-	self assert: (node additionalPropertiesNamed: #foo ifAbsent: [ true ]).
+	self assert: (node additionalPropertyNamed: #foo ifAbsent: [ true ]).
 
-	node additionalPropertiesNamed: #foo2 put: #bar.
+	node additionalPropertyNamed: #foo2 put: #bar.
 
-	self assert: (node additionalPropertiesNamed: #foo ifAbsent: [ true ]).
+	self assert: (node additionalPropertyNamed: #foo ifAbsent: [ true ]).
 
-	node additionalPropertiesNamed: #foo put: #bar.
+	node additionalPropertyNamed: #foo put: #bar.
 
-	self assert: (node additionalPropertiesNamed: #foo ifAbsent: [ false ]) equals: #bar
+	self assert: (node additionalPropertyNamed: #foo ifAbsent: [ false ]) equals: #bar
 ]
 
 { #category : 'tests' }
-FamixCallGraphAdditionalPropertiesTest >> testAdditionalPropertiesNamedIfPresent [
+FamixCallGraphAdditionalPropertiesTest >> testAdditionalPropertyNamedIfPresent [
 
 	| node |
 	node := self graph entryPoint.
-	self assert: (node additionalPropertiesNamed: #foo ifPresent: [ :value | value ]) isNil.
+	self assert: (node additionalPropertyNamed: #foo ifPresent: [ :value | value ]) isNil.
 
-	node additionalPropertiesNamed: #foo2 put: #bar.
+	node additionalPropertyNamed: #foo2 put: #bar.
 
-	self assert: (node additionalPropertiesNamed: #foo ifPresent: [ :value | value ]) isNil.
+	self assert: (node additionalPropertyNamed: #foo ifPresent: [ :value | value ]) isNil.
 
-	node additionalPropertiesNamed: #foo put: #bar.
+	node additionalPropertyNamed: #foo put: #bar.
 
-	self assert: (node additionalPropertiesNamed: #foo ifPresent: [ :value | value ]) equals: #bar
+	self assert: (node additionalPropertyNamed: #foo ifPresent: [ :value | value ]) equals: #bar
 ]
 
 { #category : 'tests' }
-FamixCallGraphAdditionalPropertiesTest >> testAdditionalPropertiesNamedIfPresentIfAbsent [
+FamixCallGraphAdditionalPropertiesTest >> testAdditionalPropertyNamedIfPresentIfAbsent [
 
 	| node |
 	node := self graph entryPoint.
-	self assert: (node additionalPropertiesNamed: #foo ifPresent: [ :value | value ] ifAbsent: [ true ]).
+	self assert: (node additionalPropertyNamed: #foo ifPresent: [ :value | value ] ifAbsent: [ true ]).
 
-	node additionalPropertiesNamed: #foo2 put: #bar.
+	node additionalPropertyNamed: #foo2 put: #bar.
 
-	self assert: (node additionalPropertiesNamed: #foo ifPresent: [ :value | value ] ifAbsent: [ true ]).
+	self assert: (node additionalPropertyNamed: #foo ifPresent: [ :value | value ] ifAbsent: [ true ]).
 
-	node additionalPropertiesNamed: #foo put: #bar.
+	node additionalPropertyNamed: #foo put: #bar.
 
-	self assert: (node additionalPropertiesNamed: #foo ifPresent: [ :value | value ] ifAbsent: [ true ]) equals: #bar
+	self assert: (node additionalPropertyNamed: #foo ifPresent: [ :value | value ] ifAbsent: [ true ]) equals: #bar
 ]
 
 { #category : 'tests' }
-FamixCallGraphAdditionalPropertiesTest >> testAdditionalPropertiesNamedPut [
+FamixCallGraphAdditionalPropertiesTest >> testAdditionalPropertyNamedPut [
 
 	| node |
 	node := self graph entryPoint.
 
-	node additionalPropertiesNamed: #foo put: #bar.
+	node additionalPropertyNamed: #foo put: #bar.
 
-	self assert: (node additionalPropertiesNamed: #foo) equals: #bar.
+	self assert: (node additionalPropertyNamed: #foo) equals: #bar.
 
-	node additionalPropertiesNamed: #foo put: #bar2.
+	node additionalPropertyNamed: #foo put: #bar2.
 
-	self assert: (node additionalPropertiesNamed: #foo) equals: #bar2
+	self assert: (node additionalPropertyNamed: #foo) equals: #bar2
 ]
 
 { #category : 'tests' }
@@ -119,11 +119,11 @@ FamixCallGraphAdditionalPropertiesTest >> testResetAdditionalProperties [
 	| node |
 	node := self graph entryPoint.
 
-	node additionalPropertiesNamed: #foo put: #bar.
+	node additionalPropertyNamed: #foo put: #bar.
 
-	self assert: (node additionalPropertiesNamed: #foo) equals: #bar.
+	self assert: (node additionalPropertyNamed: #foo) equals: #bar.
 
 	FamixCallGraphAdditionalProperties resetAdditionalProperties.
 
-	self should: [ node additionalPropertiesNamed: #foo ] raise: NotFound
+	self should: [ node additionalPropertyNamed: #foo ] raise: NotFound
 ]
