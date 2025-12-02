@@ -7,13 +7,13 @@ FamixCallGraphNode >> additionalProperties [
 ]
 
 { #category : '*Famix-CallGraphs-Properties' }
-FamixCallGraphNode >> additionalPropertiesNamed: aString [
+FamixCallGraphNode >> additionalPropertyNamed: aString [
 
 	^ (FamixCallGraphAdditionalProperties current at: self) at: aString
 ]
 
 { #category : '*Famix-CallGraphs-Properties' }
-FamixCallGraphNode >> additionalPropertiesNamed: aString ifAbsent: aBlock [
+FamixCallGraphNode >> additionalPropertyNamed: aString ifAbsent: aBlock [
 
 	^ FamixCallGraphAdditionalProperties current
 		  at: self
@@ -22,7 +22,7 @@ FamixCallGraphNode >> additionalPropertiesNamed: aString ifAbsent: aBlock [
 ]
 
 { #category : '*Famix-CallGraphs-Properties' }
-FamixCallGraphNode >> additionalPropertiesNamed: aString ifPresent: aBlock [
+FamixCallGraphNode >> additionalPropertyNamed: aString ifPresent: aBlock [
 
 	^ FamixCallGraphAdditionalProperties current
 		  at: self
@@ -31,7 +31,7 @@ FamixCallGraphNode >> additionalPropertiesNamed: aString ifPresent: aBlock [
 ]
 
 { #category : '*Famix-CallGraphs-Properties' }
-FamixCallGraphNode >> additionalPropertiesNamed: aString ifPresent: aBlock ifAbsent: anotherBlock [
+FamixCallGraphNode >> additionalPropertyNamed: aString ifPresent: aBlock ifAbsent: anotherBlock [
 
 	^ FamixCallGraphAdditionalProperties current
 		  at: self
@@ -44,7 +44,22 @@ FamixCallGraphNode >> additionalPropertiesNamed: aString ifPresent: aBlock ifAbs
 ]
 
 { #category : '*Famix-CallGraphs-Properties' }
-FamixCallGraphNode >> additionalPropertiesNamed: aString put: aValue [
+FamixCallGraphNode >> additionalPropertyNamed: aString put: aValue [
 
 	^ (FamixCallGraphAdditionalProperties current at: self ifAbsentPut: [ Dictionary new ]) at: aString put: aValue
+]
+
+{ #category : '*Famix-CallGraphs-Properties' }
+FamixCallGraphNode >> removeAdditionalPropertyNamed: aString [
+
+	^ (FamixCallGraphAdditionalProperties current at: self) removeKey: aString
+]
+
+{ #category : '*Famix-CallGraphs-Properties' }
+FamixCallGraphNode >> removeAdditionalPropertyNamed: aString ifAbsent: aBlock [
+
+	^ FamixCallGraphAdditionalProperties current
+		  at: self
+		  ifPresent: [ :dict | dict removeKey: aString ifAbsent: aBlock ]
+		  ifAbsent: aBlock
 ]
