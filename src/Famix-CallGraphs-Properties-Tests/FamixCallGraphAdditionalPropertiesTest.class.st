@@ -114,6 +114,40 @@ FamixCallGraphAdditionalPropertiesTest >> testAdditionalPropertyNamedPut [
 ]
 
 { #category : 'tests' }
+FamixCallGraphAdditionalPropertiesTest >> testRemoveAdditionalPropertyNamed [
+
+	| node |
+	node := self graph entryPoint.
+	self should: [ node removeAdditionalPropertyNamed: #foo ] raise: NotFound.
+
+	node additionalPropertyNamed: #foo2 put: #bar.
+
+	self should: [ node removeAdditionalPropertyNamed: #foo ] raise: NotFound.
+
+	node additionalPropertyNamed: #foo put: #bar.
+
+	self assert: (node removeAdditionalPropertyNamed: #foo) equals: #bar.
+	self assert: (node additionalPropertyNamed: #foo ifPresent: [ false ] ifAbsent: [ true ])
+]
+
+{ #category : 'tests' }
+FamixCallGraphAdditionalPropertiesTest >> testRemoveAdditionalPropertyNamedIfAbsent [
+
+	| node |
+	node := self graph entryPoint.
+	self assert: (node removeAdditionalPropertyNamed: #foo ifAbsent: [ true ]).
+
+	node additionalPropertyNamed: #foo2 put: #bar.
+
+	self assert: (node removeAdditionalPropertyNamed: #foo ifAbsent: [ true ]).
+
+	node additionalPropertyNamed: #foo put: #bar.
+
+	self assert: (node removeAdditionalPropertyNamed: #foo ifAbsent: [ false ]) equals: #bar.
+	self assert: (node additionalPropertyNamed: #foo ifPresent: [ false ] ifAbsent: [ true ])
+]
+
+{ #category : 'tests' }
 FamixCallGraphAdditionalPropertiesTest >> testResetAdditionalProperties [
 
 	| node |

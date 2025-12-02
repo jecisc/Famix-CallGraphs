@@ -48,3 +48,18 @@ FamixCallGraphNode >> additionalPropertyNamed: aString put: aValue [
 
 	^ (FamixCallGraphAdditionalProperties current at: self ifAbsentPut: [ Dictionary new ]) at: aString put: aValue
 ]
+
+{ #category : '*Famix-CallGraphs-Properties' }
+FamixCallGraphNode >> removeAdditionalPropertyNamed: aString [
+
+	^ (FamixCallGraphAdditionalProperties current at: self) removeKey: aString
+]
+
+{ #category : '*Famix-CallGraphs-Properties' }
+FamixCallGraphNode >> removeAdditionalPropertyNamed: aString ifAbsent: aBlock [
+
+	^ FamixCallGraphAdditionalProperties current
+		  at: self
+		  ifPresent: [ :dict | dict removeKey: aString ifAbsent: aBlock ]
+		  ifAbsent: aBlock
+]
