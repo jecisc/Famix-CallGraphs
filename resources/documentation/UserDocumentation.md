@@ -1,5 +1,19 @@
 # Famix CallGraphs
 
+<!-- TOC -->
+
+- [Famix CallGraphs](#famix-callgraphs)
+  - [Class Hierarchy Analysis (CHA)](#class-hierarchy-analysis-cha)
+  - [CallGraph result](#callgraph-result)
+  - [Management of stubs](#management-of-stubs)
+  - [Famix-CallGraphs and FamixBridge](#famix-callgraphs-and-famixbridge)
+  - [Additional properties](#additional-properties)
+  - [Testing of the project](#testing-of-the-project)
+  - [Edge cases](#edge-cases)
+    - [Java static initialization blocks](#java-static-initialization-blocks)
+
+<!-- /TOC -->
+
 ## Class Hierarchy Analysis (CHA)
 
 In order to use the CHA (Class Hierarchy Analysis) call graph builder you should use the class `FamixJavaCHABuilder`. You can provide it with `FamixJavaMethod` instances using `entryPoint:` or `entryPoints:`.
