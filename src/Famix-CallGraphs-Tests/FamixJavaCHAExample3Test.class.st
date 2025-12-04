@@ -277,6 +277,16 @@ FamixJavaCHAExample3Test >> testHMethodFCallsMethodEFromIJAndK [
 	self assert: method callees size equals: 3
 ]
 
+{ #category : 'tests - stub' }
+FamixJavaCHAExample3Test >> testLmethod3CallsAStubNode [
+
+	| method |
+	method := self graph entryPoint firstCalleeMatching: [ :node | node kindName = 'L' and: [ node methodName = 'method3' ] ].
+
+	self assert: method callees size equals: 2.
+	self assert: (method callees allSatisfy: [ :node | node isStubNode ])
+]
+
 { #category : 'tests - constructor' }
 FamixJavaCHAExample3Test >> testMainCallsCConstructor [
 

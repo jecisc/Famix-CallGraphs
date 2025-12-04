@@ -1,19 +1,19 @@
-Extension { #name : 'FamixCallGraphNode' }
+Extension { #name : 'FamixAbstractCallGraphNode' }
 
 { #category : '*Famix-CallGraphs-Properties' }
-FamixCallGraphNode >> additionalProperties [
+FamixAbstractCallGraphNode >> additionalProperties [
 
 	^ FamixCallGraphAdditionalProperties current at: self ifAbsent: [ nil ]
 ]
 
 { #category : '*Famix-CallGraphs-Properties' }
-FamixCallGraphNode >> additionalPropertiesNamed: aString [
+FamixAbstractCallGraphNode >> additionalPropertiesNamed: aString [
 
 	^ (FamixCallGraphAdditionalProperties current at: self) at: aString
 ]
 
 { #category : '*Famix-CallGraphs-Properties' }
-FamixCallGraphNode >> additionalPropertiesNamed: aString ifAbsent: aBlock [
+FamixAbstractCallGraphNode >> additionalPropertiesNamed: aString ifAbsent: aBlock [
 
 	^ FamixCallGraphAdditionalProperties current
 		  at: self
@@ -22,7 +22,7 @@ FamixCallGraphNode >> additionalPropertiesNamed: aString ifAbsent: aBlock [
 ]
 
 { #category : '*Famix-CallGraphs-Properties' }
-FamixCallGraphNode >> additionalPropertiesNamed: aString ifPresent: aBlock [
+FamixAbstractCallGraphNode >> additionalPropertiesNamed: aString ifPresent: aBlock [
 
 	^ FamixCallGraphAdditionalProperties current
 		  at: self
@@ -31,7 +31,7 @@ FamixCallGraphNode >> additionalPropertiesNamed: aString ifPresent: aBlock [
 ]
 
 { #category : '*Famix-CallGraphs-Properties' }
-FamixCallGraphNode >> additionalPropertiesNamed: aString ifPresent: aBlock ifAbsent: anotherBlock [
+FamixAbstractCallGraphNode >> additionalPropertiesNamed: aString ifPresent: aBlock ifAbsent: anotherBlock [
 
 	^ FamixCallGraphAdditionalProperties current
 		  at: self
@@ -44,7 +44,7 @@ FamixCallGraphNode >> additionalPropertiesNamed: aString ifPresent: aBlock ifAbs
 ]
 
 { #category : '*Famix-CallGraphs-Properties' }
-FamixCallGraphNode >> additionalPropertiesNamed: aString put: aValue [
+FamixAbstractCallGraphNode >> additionalPropertiesNamed: aString put: aValue [
 
 	^ (FamixCallGraphAdditionalProperties current at: self ifAbsentPut: [ Dictionary new ]) at: aString put: aValue
 ]
