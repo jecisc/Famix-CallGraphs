@@ -1,4 +1,6 @@
-class Util {
+package simple;
+
+public class Util {
     /**
      * Returns the first element of any array.
      * The method itself is generic – the compiler infers the type
