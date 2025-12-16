@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public abstract class ParametriCollection<T> extends AbstractSet<T> {
+public abstract class ParametricCollection<T> extends AbstractSet<T> {
     private final Set<T> values = new LinkedHashSet<>();
 
     public boolean method3(T value) {
@@ -29,7 +29,7 @@ public abstract class ParametriCollection<T> extends AbstractSet<T> {
 
             public void remove() {
                 it.remove();
-                ParametriCollection.this.method1(this.current);
+                ParametricCollection.this.method1(this.current);
             }
         };
     }

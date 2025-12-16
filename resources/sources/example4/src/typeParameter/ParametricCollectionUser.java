@@ -1,13 +1,11 @@
 package typeParameter;
 
-import java.util.Collection;
-
 public class ParametricCollectionUser {
-    private ParametriCollection<SimpleObject> collection;
+    private ParametricCollectionSubclass<SimpleObject> collection;
 
-    public ParametriCollection<SimpleObject> getCollection() {
+    public ParametricCollectionSubclass<SimpleObject> getCollection() {
         if (collection == null) {
-            collection = new ParametriCollection<>() {
+            collection = new ParametricCollectionSubclass<>() {
                 @Override
                 public void method1(SimpleObject e) {
                     e.getHello();

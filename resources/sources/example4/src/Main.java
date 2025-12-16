@@ -14,8 +14,8 @@ public class Main {
         Box<? extends Number> numBox = new Box<>(3.14);
         System.out.println(numBox);
 
-        //ParametricCollectionUser user = new ParametricCollectionUser();
-        //user.getCollection().method3(new SimpleObject());
-        //System.out.println(user.getCollection());
+        ParametricCollectionUser user = new ParametricCollectionUser();
+        user.getCollection().method3(new SimpleObject());
+        System.out.println(user.getCollection());
     }
 }
