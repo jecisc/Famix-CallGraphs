@@ -72,6 +72,16 @@ FamixJavaCHAExample4Test >> testBoxSetIsCalledByMain [
 ]
 
 { #category : 'tests' }
+FamixJavaCHAExample4Test >> testMainCallsMethod3FromParametricCollection [
+
+	| main |
+	main := self graph entryPoint.
+
+	self assert: (main callees select: [ :node | node kindName = 'ParametricCollection' and: [ node methodName = 'method3' ] ]) size equals: 1.
+	self assert: (main callees select: [ :node | node methodName = 'method3' ]) size equals: 1
+]
+
+{ #category : 'tests' }
 FamixJavaCHAExample4Test >> testUtilFirstCallees [
 
 	| method |
