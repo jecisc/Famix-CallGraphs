@@ -10,9 +10,9 @@ FamixJavaMethod >> isEquivalentTo: aMethod [
 
 	self parameters size = aMethod parameters size ifFalse: [ ^ false ].
 
+	"We need to ensure the type of each parameter is the same after applying the concretizations to the type parameters"
 	self orederedParameters with: aMethod orederedParameters do: [ :param1 :param2 |
 			| realType1 realType2 |
-			param1 name = param2 name ifFalse: [ ^ false ].
 
 			realType1 := param1 typing declaredType.
 			realType1 isClass ifFalse: [ "We have a type parameter and we need to find its concretization."
