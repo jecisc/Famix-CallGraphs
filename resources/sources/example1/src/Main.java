@@ -8,6 +8,9 @@ public class Main {
         s = b.m();
         System.out.println(s);
 
+        C c = new C();
+        c.m2("Hello");
+
         E e = new E();
         System.out.println(e.getE());
     }

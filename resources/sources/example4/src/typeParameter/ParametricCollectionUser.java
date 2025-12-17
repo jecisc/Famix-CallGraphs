@@ -11,9 +11,12 @@ public class ParametricCollectionUser {
                     e.getHello();
                 }
 
+                /*
+                 * We are overriding and updating the name of a parameter to ensure we do not take the parameter name into account during the resolution
+                 */
                 @Override
-                public void method2(SimpleObject var, SimpleObject var2) {
-                    var.getHello();
+                public void method2(SimpleObject otherVarName, SimpleObject var2) {
+                    otherVarName.getHello();
                     var2.getHello();
                 }
 
