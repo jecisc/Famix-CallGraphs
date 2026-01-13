@@ -81,13 +81,13 @@ It can be useful sometimes to annotate some nodes with some informations. This i
 You can use them like this:
 
 ```smalltalk
-aNode additionPropertiesNamed: #foo put: #bar.
-aNode additionPropertiesNamed: #foo. "==> #bar"
-aNode additionPropertiesNamed: #foo2. "==> NotFound"
-aNode additionPropertiesNamed: #foo2 ifPresent: [ :value | value ]. "==> nil"
-aNode additionPropertiesNamed: #foo ifPresent: [ :value | value ]. "==> #bar"
-aNode additionPropertiesNamed: #foo ifPresent: [ :value | value ] ifAbsent: [ #toto ]. "==> #bar"
-aNode additionPropertiesNamed: #foo2 ifPresent: [ :value | value ] ifAbsent: [ #toto ]. "==> #toto"
+aNode additionPropertyNamed: #foo put: #bar.
+aNode additionPropertyNamed: #foo. "==> #bar"
+aNode additionPropertyNamed: #foo2. "==> NotFound"
+aNode additionPropertyNamed: #foo2 ifPresent: [ :value | value ]. "==> nil"
+aNode additionPropertyNamed: #foo ifPresent: [ :value | value ]. "==> #bar"
+aNode additionPropertyNamed: #foo ifPresent: [ :value | value ] ifAbsent: [ #toto ]. "==> #bar"
+aNode additionPropertyNamed: #foo2 ifPresent: [ :value | value ] ifAbsent: [ #toto ]. "==> #toto"
 ```
 
 The implementation that is currently used is optimized to have a weak memory footprint but the counterpart is that this implementation can be slow if we annotate a lot of nodes. 
