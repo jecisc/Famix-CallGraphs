@@ -1,7 +1,7 @@
-Extension { #name : 'FamixCallGraphNode' }
+Extension { #name : 'FamixAbstractCallGraphNode' }
 
 { #category : '*Famix-CallGraphs-Properties' }
-FamixCallGraphNode >> additionalProperties [
+FamixAbstractCallGraphNode >> additionalProperties [
 
 	^ FamixCallGraphAdditionalProperties current at: self ifAbsent: [ nil ]
 ]

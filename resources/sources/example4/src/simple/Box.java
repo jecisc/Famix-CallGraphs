@@ -1,3 +1,5 @@
+package simple;
+
 public class Box<T> {
     // T is the *type parameter* – whatever type the user supplies
     private T value;
@@ -16,6 +18,6 @@ public class Box<T> {
 
     @Override
     public String toString() {
-        return "Box holding: " + value;
+        return "simple.Box holding: " + value;
     }
 }

@@ -74,5 +74,5 @@ FamixCallGraphAdditionalProperties >> at: aNode ifPresent: aBlock ifAbsent: anot
 FamixCallGraphAdditionalProperties >> initialize [
 
 	super initialize.
-	propertiesMap := WeakKeyDictionary new
+	propertiesMap := WeakIdentityKeyDictionary new
 ]
