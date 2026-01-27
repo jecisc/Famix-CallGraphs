@@ -26,7 +26,8 @@ FamixJavaMethod >> isEquivalentTo: aMethod [
 						detect: [ :concretization | concretization typeArgument isClass and: [ concretization typeParameter name = realType2 name ] ]
 						ifFound: [ :concretization | realType2 := concretization typeArgument ] ].
 
-			realType1 = realType2 ifFalse: [ ^ false ] ].
+			"We compare the name and not the instances because they can be the same type coming from different classes that are equivalent."
+			realType1 name = realType2 name ifFalse: [ ^ false ] ].
 
 	^ true
 ]
