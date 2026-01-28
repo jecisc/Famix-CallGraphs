@@ -11,7 +11,9 @@ FamixAbstractCallGraphPathFinderBuilderTestResource class >> javaSourcesFolder [
 	"Return the java folder containing the sources to parse for those tests"
 
 	| folder |
-	folder := FamixCallGraphBridge sources / ('pf_' , (self name withoutPrefix: 'FamixJavaCallGraphPathFinder') withoutSuffix: 'Resource') uncapitalized.
+	folder := FamixCallGraphBridge sources
+	          /
+	          ('pf_' , ((self name withoutPrefix: 'FamixJavaCallGraphPathFinder') withoutSuffix: 'Resource') uncapitalized).
 
 	folder ifAbsent: [ self error: 'Folder does not exists ' , folder pathString ].
 
