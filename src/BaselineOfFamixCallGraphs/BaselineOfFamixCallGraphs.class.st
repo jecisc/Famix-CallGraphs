@@ -12,17 +12,18 @@ Class {
 BaselineOfFamixCallGraphs >> baseline: spec [
 
 	<baseline>
-	spec for: #common do: [
-			"Dependencies"
+	spec for: #common do: [ "Dependencies"
 			self gitBridge: spec.
 
 			"Packages"
 			spec
 				package: 'Famix-CallGraphs';
-				package: 'Famix-CallGraphs-Properties' with: [ spec requires: #('Famix-CallGraphs') ];
+				package: 'Famix-CallGraphs-Properties' with: [ spec requires: #( 'Famix-CallGraphs' ) ];
+				package: 'Famix-CallGraphs-PathFinder';
 				package: 'Famix-CallGraphs-Tests' with: [ spec requires: #( 'Famix-CallGraphs' 'GitBridge' ) ];
-				package: 'Famix-CallGraphs-Properties-Tests' with: [ spec requires: #( 'Famix-CallGraphs-Properties' ) ].
-				
+				package: 'Famix-CallGraphs-Properties-Tests' with: [ spec requires: #( 'Famix-CallGraphs-Properties' ) ];
+				package: 'Famix-CallGraphs-PathFinder-Tests' with: [ spec requires: #( 'Famix-CallGraphs-PathFinder' ) ].
+
 			"Groups"
 			spec
 				group: 'Core' with: #( 'Famix-CallGraphs' 'Famix-CallGraphs-Properties' );
