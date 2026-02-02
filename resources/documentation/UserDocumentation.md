@@ -8,6 +8,7 @@
   - [Management of stubs](#management-of-stubs)
   - [Famix-CallGraphs and FamixBridge](#famix-callgraphs-and-famixbridge)
   - [Additional properties](#additional-properties)
+  - [Path Finder](#path-finder)
   - [Testing of the project](#testing-of-the-project)
   - [Edge cases](#edge-cases)
     - [Java static initialization blocks](#java-static-initialization-blocks)
@@ -94,6 +95,20 @@ The implementation that is currently used is optimized to have a weak memory foo
 If we need to annotate a lot of nodes we might have to develop new solutions. 
 
 > Note: We are using a singleton to add the properties of all nodes. This singleton will clean itself if a callgraph is not used anymore and garbage collected. But if those callgraph are not garbage colleted but we want to reset the properties, we can execute `FamixCallGraphAdditionalProperties resetAdditionalProperties` to reset the singleton. THIS WILL AFFECT ALL CALLGRAPHS.
+
+## Path Finder
+The Path Finder provides an API to search for paths between two nodes using a Breadth-First Search (BFS) approach.
+
+You can it like this:
+
+```smalltalk
+aGraph findPathFrom: startNode to: targetNode.
+aGraph findAllPathFrom: startNode to: targetNode.
+aGraph findPathFromNodeNamed: 'com.example.Class.methodA()' toNodeNamed: 'com.example.Class.methodB()'.
+aGraph findAllPathFromNodeNamed: 'com.example.Class.methodA()' toNodeNamed: 'com.example.Class.methodB()'
+```
+
+
 
 ## Testing of the project
 
