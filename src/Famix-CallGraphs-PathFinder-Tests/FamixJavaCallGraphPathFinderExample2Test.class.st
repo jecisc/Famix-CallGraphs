@@ -1,3 +1,6 @@
+"
+For details regarding this test class context, see `FamixJavaCallGraphPathFinderExample2Resource`.
+"
 Class {
 	#name : 'FamixJavaCallGraphPathFinderExample2Test',
 	#superclass : 'FamixAbstractCallGraphPathFinderBuilderTestCase',
