@@ -1,5 +1,5 @@
 "
-This resource provides the minimal linear topology for baseline validation. It establishes a single, unambiguous path from the entry point to the leaf method. Used as a sanity check to ensure the core traversal logic functions correctly on a simple directed acyclic sequence before attempting complex graph structures
+This resource provides the minimal linear topology for baseline validation. It establishes a single, unambiguous path from the entry point to the leaf method. Used as a sanity check to ensure the core traversal logic functions correctly on a simple directed acyclic sequence.
 "
 Class {
 	#name : 'FamixJavaCallGraphPathFinderExample1Resource',
